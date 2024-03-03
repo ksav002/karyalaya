@@ -1,57 +1,73 @@
-* {
+body{
+    margin:0%;
+    padding:0%;
+    height: 100%;
     box-sizing: border-box;
+    font-family: 'Montserrat', sans-serif;
 }
 
-.front-logo {
-    position: relative;
-    left: 8%;
-    margin-top: 8%;
-    float: left;
+/* .header{
+    background-color: antiquewhite;
+} */
+
+.logo{
+    margin-top: 2%;
 }
 
-.front-logo img {
+.logo img{
+    margin-left: 3%;
+}
+
+.logo img {
     height: 78.6px;
     width: 234.8px;
+    /* border: 1px solid black; */
 }
 
 .container{
-    padding: 30px;
     box-shadow: 0 0 20px 0 rgb(0, 0, 0, 0.5);
     width: 35%;
-    position: relative;
-    right: 10%;
-    margin-top: 3%;
-    margin-bottom: 3%;
-    float: right;
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    margin-top: auto;
+    margin-bottom: auto;
+    margin-left: auto;
+    margin-right: 5%;
+}
+
+.heading{
+    text-align: center;
 }
 
 .toggle {
     position: relative;
-    left: 50%;
-    transform: translateX(-50%);
+    width: 80%;
+    max-width: 300px;
+    margin: 0 auto;
     background-color: #efefef;
     border: 1px solid #ccc;
     border-radius: 30px;
-    display: inline-block;
+    display: flex;
+    justify-content: space-between;
     padding: 20px 0;
-  }
+}
   
-  .toggle input[type=radio] {
+.toggle input[type=radio] {
     display: none;
-  }
+}
   
-  .toggle label {
-    width: 150px;
-    display: inline-block;
+.toggle label {
+    flex: 1;  /* both label takes equal space */
     text-align: center;
     z-index: 2;
     position: relative;
     cursor: pointer;
-  }
+}
   
-  .slider {
+.slider {
     height: 55px;
-    width: 150px;
+    width: calc(50% - 2px);
     background: aquamarine;
     border-radius: 30px;
     position: absolute;
@@ -60,51 +76,42 @@
     z-index: 1;
     transition: left 0.25s ease-in-out;
     display: inline-block;
-  }
+}
 
 .teacher:checked ~ .slider{
-    left: 2px;
+    left: 0; 
 }
 .student:checked ~ .slider{
-    left: 154px;
+    left: calc(50% + 1px);
 }
 
-.container h2 {
+.input-control input{
+    width: calc(100% - 40px);
+    max-width: 100%;
+    border-radius: 4px;
+    margin-top: 5px;
+    margin-bottom: 20px;
+    padding: 16px 20px;
+}
+
+.form-button{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 2%;
+}
+
+.form-button input{
+    padding: 10px 50px;
+    max-width: 100%;
+    font-size:medium;
+    border-radius: 4px;
+}
+
+.forgot-password{
     text-align: center;
 }
 
-.container ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-}
-
-.form-box input {
-    width: 100%;
-    border: 1px solid rgba(0, 0, 0, 1);
-    border-radius: 4px;
-    padding: 16px 20px;
-    margin-bottom: 20px;
-}
-
-.form-box-footer input {
-    position: relative;
-    left: 50%;
-    transform: translateX(-50%);
-}
-
-.form-box-footer input[type*=submit]{
-    padding: 10px 50px;
-}
-
-.agreement a{
-    color: black;
-}
-
-.agreement a:hover{
-    color: blue;
-}
-
-.agreement a:visited{
-    color: purple;
+.terms{
+    text-align: center;
 }
