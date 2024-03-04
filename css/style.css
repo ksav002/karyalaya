@@ -85,12 +85,16 @@ body{
     left: calc(50% + 1px);
 }
 
+.input-control label[for=password]{  
+    display: block;
+    margin-top: 20px;
+}
+
 .input-control input{
     width: calc(100% - 40px);
     max-width: 100%;
     border-radius: 4px;
     margin-top: 5px;
-    margin-bottom: 20px;
     padding: 16px 20px;
 }
 
@@ -114,4 +118,8 @@ body{
 
 .terms{
     text-align: center;
+}
+
+.error{
+    color: red;
 }
