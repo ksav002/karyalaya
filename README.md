@@ -1,9 +1,11 @@
 # project
 4th sem project
-https://github.com/ksav002/project.git
+git add. 
+git commit -m "1st upload"
+git remote add origin https://github.com/ksav002/project.git
+git push -u origin main
 
-//database 
-
+//database creation for project
 //create table
 CREATE TABLE student(
 	student_id SMALLINT PRIMARY KEY AUTO_INCREMENT,

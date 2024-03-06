@@ -3,6 +3,9 @@
     include_once 'database/login_validation.php';
     if (isset($_POST['btnLogin'])){
         $err=[];
+        if (isset($_POST['title']) && !empty($_POST['title']) && trim($_POST['title'])){
+            $title =  $_POST['title'];
+        }
         if (isset($_POST['username']) && !empty($_POST['username']) && trim($_POST['username'])){
             $username =  $_POST['username'];
         } else {
@@ -15,9 +18,13 @@
         }
 
 
+        //If there is no error, pass these 3 values to validate form and store the username and title in session then go to dashboard
+        //username is passed to check whether the user is logged in or not across multiple pages
+        //title is passed to know which dashboard to show for student/teacher
         if(count($err) == 0){
-            if (validateUser($username,$password)){
+            if (validateUserLogin($title,$username,$password)){
                 $_SESSION['username'] = $username;
+                $_SESSION['title'] = $title;
                 header("location:dashboard.php");
             } else {
                 $err['login'] = 'Invalid username or password';

@@ -6,10 +6,6 @@ body{
     font-family: 'Montserrat', sans-serif;
 }
 
-/* .header{
-    background-color: antiquewhite;
-} */
-
 .logo{
     margin-top: 2%;
 }
@@ -122,4 +118,22 @@ body{
 
 .error{
     color: red;
+}
+
+.blocks{
+    box-shadow: 0 0 20px 0 rgb(0, 0, 0, 0.5);
+    width: 20%;
+    height: 200px;
+    padding: 30px;
+    display: inline-block;
+    margin: 10px;
+}
+
+.dashboard-header{
+    display: flex;
+    border: 1px solid black;
+}
+
+.welcome{
+    right: 10px;
 }
