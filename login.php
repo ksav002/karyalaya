@@ -18,11 +18,17 @@
         }
 
 
+        if($title == 'teacher'){
+            $tableName = 'teachers';
+        }
+        if($title == 'student'){
+            $tableName = 'students';
+        }
         //If there is no error, pass these 3 values to validate form and store the username and title in session then go to dashboard
         //username is passed to check whether the user is logged in or not across multiple pages
         //title is passed to know which dashboard to show for student/teacher
         if(count($err) == 0){
-            if (validateUserLogin($title,$username,$password)){
+            if (validateUserLogin($tableName,$username,$password)){
                 $_SESSION['username'] = $username;
                 $_SESSION['title'] = $title;
                 header("location:dashboard.php");
@@ -53,10 +59,10 @@
         </h2>
         <form action="" method="post">
             <div class="toggle">
-                <input type="radio" value="Teacher" name="title" class="teacher" id="teacher" checked>
+                <input type="radio" value="teacher" name="title" class="teacher" id="teacher" checked>
                 <label for="teacher">Teacher</label>
 
-                <input type="radio" value="Student" name="title" class="student" id="student">
+                <input type="radio" value="student" name="title" class="student" id="student">
                 <label for="student">Student</label>
 
                 <div class="slider">
