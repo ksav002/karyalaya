@@ -12,13 +12,10 @@ body{
 
 .logo img{
     margin-left: 3%;
-}
-
-.logo img {
     height: 78.6px;
     width: 234.8px;
-    /* border: 1px solid black; */
 }
+
 
 .container{
     box-shadow: 0 0 20px 0 rgb(0, 0, 0, 0.5);
@@ -120,20 +117,89 @@ body{
     color: red;
 }
 
+/* dashboard ko code yeta bata suru */
+.nav-header{
+    display: flex;
+}
+
+.nav-welcome{
+    margin-left: auto;
+    padding-right: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.nav-welcome p{
+    font-size: 1rem;
+    padding-right: 10px;
+}
+
+.nav-button{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 10px;
+}
+
+.nav-button button{
+    padding: 5px;
+    border-radius: 15px;
+    cursor: pointer;
+}
+
 .blocks{
     box-shadow: 0 0 20px 0 rgb(0, 0, 0, 0.5);
     width: 20%;
     height: 200px;
-    padding: 30px;
     display: inline-block;
     margin: 10px;
 }
 
-.dashboard-header{
-    display: flex;
-    border: 1px solid black;
+.blocks:hover {
+    transform: scale(1.05);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
 }
 
-.welcome{
-    right: 10px;
+.blocks .left {
+    width: 40%;
+    height: 100%;
+    float:left;
+    background: rgb(30, 28, 28);
+    color: #FAF9F6;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
+
+.blocks .left span {
+    padding-bottom:5px;
+    border-bottom: 1px solid #FAF9F6;
+}
+
+.blocks .right {
+    width: 60%;
+    height: 100%;
+    float:right;
+}
+.blocks .right span:nth-child(1){
+    height: 80%;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 10px;
+}
+
+
+.blocks .right span:nth-child(2){
+    height: 20%;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: right;
+    padding: 0 10px;
+}
+
+

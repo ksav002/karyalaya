@@ -1,27 +1,30 @@
 <?php
-    function connectDatabase($dbname) {
-        $connection = mysqli_connect('localhost', 'root', '', $dbname);
-        if (!$connection) {
-            die('Database connection failed: ' . mysqli_connect_error());
-        }
-        return $connection;
+    error_reporting();
+    include_once 'connect.php';
+    include_once 'check_result.php';
+    if (session_status() == PHP_SESSION_NONE) {
+        session_start();
     }
-    //validateUserLogin('student','johndoe','password123');
+    // validateUserLogin('students','johndoe','password123');
+    // validateUserLogin('teachers','daveg','password789');
     function validateUserLogin($tableName,$username,$password){
         
-        $connection = connectDatabase('project');
+        $connection = connectDatabase();
         
         $sql = "SELECT * FROM $tableName WHERE username = '$username' AND password = '" . md5($password) . "'";
 
         $result = mysqli_query($connection,$sql);
-
-        if($result && mysqli_num_rows($result)>0){
-            mysqli_close($connection);
-            return true; // User exists and credentials are correct
+        
+        //if the given sql query returns any value execute the code else return false
+        if (checkResult($result,$connection)){
+            //store fetched data in a array
+            $details = [];
+            while ($row = mysqli_fetch_assoc($result)) {
+                array_push($details, $row);
+            }
+            return true;
         } else {
-            mysqli_close($connection);
-            return false; // User does not exist or credentials are incorrect
+            return false;
         }
     }
-
 ?>

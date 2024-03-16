@@ -1,6 +1,7 @@
-<?php 
+<?php
+    error_reporting();
     session_start();
-    include_once 'database/login_validation.php';
+    include_once '../database/login_validation.php';
     if (isset($_POST['btnLogin'])){
         $err=[];
         if (isset($_POST['title']) && !empty($_POST['title']) && trim($_POST['title'])){
@@ -21,7 +22,7 @@
         if($title == 'teacher'){
             $tableName = 'teachers';
         }
-        if($title == 'student'){
+        else if($title == 'student'){
             $tableName = 'students';
         }
         //If there is no error, pass these 3 values to validate form and store the username and title in session then go to dashboard
@@ -45,12 +46,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="../css/style.css">
 </head>
 <body>
     <div class="header">
         <div class="logo">
-            <img src="images/logo.svg" alt="Assignment Digitalization">
+            <img src="../images/logo.svg" alt="Assignment Digitalization">
         </div>
     </div>
     <div class="container">

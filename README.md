@@ -1,6 +1,6 @@
 # project
 4th sem project
-git add. 
+git add . 
 git commit -m "1st upload"
 git remote add origin https://github.com/ksav002/project.git
 git push -u origin main
@@ -184,9 +184,9 @@ VALUES
     ('Kevin', 'Hernandez', 9998887777, 'kevin.hernandez@example.com', 'kevhern', MD5('kevin1234'), '1992-05-08', true);
 
 CREATE TABLE teacher_courses (
+  teacher_courses_id INT PRIMARY KEY AUTO_INCREMENT,
   teacher_id INT NOT NULL,
   course_code VARCHAR(10) NOT NULL,
-  PRIMARY KEY (teacher_id, course_code),
   FOREIGN KEY (teacher_id) REFERENCES teachers(teacher_id),
   FOREIGN KEY (course_code) REFERENCES courses(course_code),
   `active_status` BOOLEAN NOT NULL
@@ -205,37 +205,39 @@ VALUES
 
 CREATE TABLE assignments (
   assignment_id INT PRIMARY KEY AUTO_INCREMENT,
-  course_code VARCHAR(10) NOT NULL,
+  teacher_courses_id int NOT NULL,
   assignment_question TEXT NOT NULL,
   deadline DATE,
-  FOREIGN KEY (course_code) REFERENCES courses(course_code)
+  FOREIGN KEY (teacher_courses_id) REFERENCES teacher_courses(teacher_courses_id)
 ) ;
 ALTER TABLE assignments AUTO_INCREMENT = 101;
 
-
-INSERT INTO assignments (course_code, assignment_question, deadline)
-VALUES
-('CACS101', 'What is a computer?', '2023-02-15'),
-('CACS101', 'What are the fundamental concepts of computer?', '2023-02-17'),
-('CACS105', 'What is Digital Logic?', '2023-02-18'),
-('CACS105', 'What are the basic gates in Digital Logic?', '2023-02-20');
+INSERT INTO assignments (teacher_courses_id, assignment_question, deadline)
+VALUES 
+(1, 'What is html?', '2024-03-15'),
+(2, 'Explain the concept of javascript.', '2024-03-20'),
+(3, 'What is probability?', '2024-03-22'),
+(4, 'Write the chapters of Numerical Method.', '2024-03-25');
 
 CREATE TABLE submission (
     submission_id INT AUTO_INCREMENT PRIMARY KEY,
     assignment_id INT NOT NULL,
     student_id INT NOT NULL,
+    teacher_courses_id int NOT NULL,
     uploaded_datetime TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (assignment_id) REFERENCES assignments(assignment_id),
-    FOREIGN KEY (student_id) REFERENCES students(student_id)
+    FOREIGN KEY (student_id) REFERENCES students(student_id),
+    FOREIGN KEY (teacher_courses_id) REFERENCES teacher_courses(teacher_courses_id)
 );
 ALTER TABLE submission AUTO_INCREMENT = 101;
 
-INSERT INTO submission (assignment_id, student_id)
-VALUES
-    (101, 101),
-    (102, 102),
-    (103, 103),
-    (104, 104);
+INSERT INTO submission (assignment_id, student_id, teacher_courses_id)
+VALUES 
+(101, 101, 1),
+(102, 102, 2),
+(103, 103, 3),
+(104, 104, 4);
+
 
 CREATE TABLE files (
     file_id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
@@ -247,3 +249,36 @@ ALTER TABLE files AUTO_INCREMENT = 101;
 
 INSERT INTO files (submission_id, file_data)
 VALUES (101, LOAD_FILE('C:/xampp/mysql/data/mysql_error.log'));
+
+CREATE TABLE batch_students_semester (
+    batch_year YEAR NOT NULL,
+    student_id INT NOT NULL,
+    semester_number SMALLINT NOT NULL,
+    PRIMARY KEY (batch_year, student_id, semester_number),
+    FOREIGN KEY (batch_year) REFERENCES batch(batch_year),
+    FOREIGN KEY (student_id) REFERENCES students(student_id),
+    FOREIGN KEY (semester_number) REFERENCES semesters(semester_number)
+);
+INSERT INTO batch_students_semester(batch_year, semester_number, student_id)
+VALUES
+(2023,1,102),
+(2023,1,103),
+(2022,3,101),
+(2022,3,104),
+(2020,7,105);
+
+
+//might need later codes
+
+SELECT course_code, course_title FROM courses INNER JOIN teacher_courses USING (course_code) WHERE teacher_id=101 AND active_status=1;
+SELECT course_code, course_title, semester_number FROM courses INNER JOIN batch USING (semester_number) WHERE semester_number=3;
+
+//store teacher_id or student_id into a session named id
+            if ($_SESSION['title'] == 'teacher'){
+                $_SESSION['id'] = $details[0]['teacher_id'];
+                $_SESSION['name'] = $details[0]['fname']." ".$details[0]['lname'];
+            }
+            else if ($_SESSION['title'] == 'student'){
+                $_SESSION['id'] = $details[0]['student_id'];
+                $_SESSION['name'] = $details[0]['fname']." ".$details[0]['lname'];
+            }
