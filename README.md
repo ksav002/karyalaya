@@ -282,3 +282,14 @@ SELECT course_code, course_title, semester_number FROM courses INNER JOIN batch 
                 $_SESSION['id'] = $details[0]['student_id'];
                 $_SESSION['name'] = $details[0]['fname']." ".$details[0]['lname'];
             }
+
+            
+    function getId($loggedInUsername){
+        $userDetails=[];
+        $userDetails = getDetails($loggedInUsername);
+        //echo '<pre>';
+        print_r($userDetails);
+        foreach ($userDetails as $detail){
+            echo $detail['teacher_id'];
+        }
+    }

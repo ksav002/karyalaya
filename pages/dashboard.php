@@ -11,16 +11,16 @@
     // Retrieve the name and title from the session variable
     $loggedInUsername = $_SESSION['username'];
     $title = $_SESSION['title'];
-    
-    if($title == 'teacher'){
-        $tableName = 'teachers';
-    }
-    else if($title == 'student'){
-        $tableName = 'students';
-    }
-    $id = getId($tableName);
 
-
+    //get teacher_id and semester_number to view what courses teacher is teaching or what courses student is studying
+    $userDetails = getDetails($loggedInUsername);
+    foreach($userDetails as $detail){
+        if ($title == 'teacher'){
+            $value = $detail['teacher_id'];
+        } else if($title == 'student') {
+            $value = $detail['semester_number'];
+        }
+    }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -36,22 +36,31 @@
         <h1>My Courses</h1>
     </div>
     <?php 
-        $courseNames = getCourse(3);
-        // echo '<pre>';
-        // print_r($courseNames);
-        foreach ($courseNames as $index => $course) {
-            // echo "Index: " . $index . ", Course Code: " . $course['course_code'] . ", Course Title: " . $course['course_title'] . "<br>";
-            echo "
-            <div class='blocks'>
-                <div class='left'>
-                    <span>". $course['course_code'] ."</span>
-                </div>
-                <div class='right'>
-                    <span>". $course['course_title'] ."</span>
-                    <span>Teacher Name</span>
-                </div>
-            </div>
-            ";
+        $courseNames = getCourse($value);
+        foreach ($courseNames as $course) {
+    ?>
+    <div class='blocks'>
+        <div class='left'>
+            <span><?php echo $course['course_code']; ?></span>
+        </div>
+        <div class='right'>
+            <span><?php echo $course['course_title']; ?></span>
+            <span>
+                <?php
+                    if ($title == 'teacher'){
+                        echo 'Semester '.$course['semester_number'];
+                    } else if($title == 'student') {
+                        if (getSubjectTeacher("{$course['course_code']}") == false){
+                            echo 'No teacher assigned';
+                        } else {
+                            echo getSubjectTeacher("{$course['course_code']}");
+                        }
+                    }
+                ?>
+            </span>
+        </div>
+    </div>
+    <?php
         }
     ?>
 </body>

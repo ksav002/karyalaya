@@ -183,6 +183,7 @@ body{
     height: 100%;
     float:right;
 }
+
 .blocks .right span:nth-child(1){
     height: 80%;
     text-align: center;
@@ -192,7 +193,6 @@ body{
     padding: 0 10px;
 }
 
-
 .blocks .right span:nth-child(2){
     height: 20%;
     text-align: center;
@@ -200,6 +200,5 @@ body{
     align-items: center;
     justify-content: right;
     padding: 0 10px;
+    font-size: 0.9rem;
 }
-
-
