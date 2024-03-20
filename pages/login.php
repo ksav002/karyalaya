@@ -18,7 +18,6 @@
             $err['password'] = 'Please enter password';
         }
 
-
         if($title == 'teacher'){
             $tableName = 'teachers';
         }

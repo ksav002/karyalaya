@@ -16,7 +16,6 @@ body{
     width: 234.8px;
 }
 
-
 .container{
     box-shadow: 0 0 20px 0 rgb(0, 0, 0, 0.5);
     width: 35%;
@@ -30,7 +29,8 @@ body{
 }
 
 .heading{
-    text-align: center;
+    text-align: left;
+    margin-left: 20px;
 }
 
 .toggle {
@@ -162,6 +162,16 @@ body{
     cursor: pointer;
 }
 
+.blocks a:link,
+.blocks a:visited,
+.blocks a:hover,
+.blocks a:focus,
+.blocks a:active,
+.blocks a:target {
+    color: #000;
+    text-decoration: none;
+}
+
 .blocks .left {
     width: 40%;
     height: 100%;
@@ -201,4 +211,60 @@ body{
     justify-content: right;
     padding: 0 10px;
     font-size: 0.9rem;
+}
+
+/* assignment-page code start */
+
+.assignment-container {
+    display: flex;
+    justify-content: space-between;
+    padding: 0 20px;
+    height: 60vh;
+    column-gap: 20px;
+}
+
+.assignment-container .left,
+.assignment-container .right{
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+.assignment-container .left{
+    flex: 40%;   
+}
+
+.assignment-container .right{
+    background-color: #ccc;
+    flex: 60%;
+}
+
+.left-titles,
+.right-titles{
+    display: flex;
+    flex-direction: column;
+}
+
+.left-titles{
+    gap: 20px;
+}
+
+.left-titles .category-name {
+    box-shadow: 0 0 20px 0 rgb(0, 0, 0, 0.25);
+    cursor: pointer;
+    border-bottom: 1px solid black;
+    padding:20px;
+}
+
+.right-titles .question{
+    padding:20px;
+}
+
+.left .buttons,
+.right .buttons{
+    background-color: red;
+    display: flex;
+    justify-content: flex-end;
+    position: sticky;
+    bottom: 0;
+    padding: 10px;
 }

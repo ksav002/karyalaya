@@ -1,4 +1,5 @@
 <?php
+    error_reporting();
     session_start();
     include_once '../database/value_pull.php';
     // Check if the user is logged in
@@ -40,25 +41,27 @@
         foreach ($courseNames as $course) {
     ?>
     <div class='blocks'>
-        <div class='left'>
-            <span><?php echo $course['course_code']; ?></span>
-        </div>
-        <div class='right'>
-            <span><?php echo $course['course_title']; ?></span>
-            <span>
-                <?php
-                    if ($title == 'teacher'){
-                        echo 'Semester '.$course['semester_number'];
-                    } else if($title == 'student') {
-                        if (getSubjectTeacher("{$course['course_code']}") == false){
-                            echo 'No teacher assigned';
-                        } else {
-                            echo getSubjectTeacher("{$course['course_code']}");
+        <a href="assignment.php">
+            <div class='left'>
+                <span><?php echo $course['course_code']; ?></span>
+            </div>
+            <div class='right'>
+                <span><?php echo $course['course_title']; ?></span>
+                <span>
+                    <?php
+                        if ($title == 'teacher'){
+                            echo 'Semester '.$course['semester_number'];
+                        } else if($title == 'student') {
+                            if (getSubjectTeacher("{$course['course_code']}") == false){
+                                echo 'No teacher assigned';
+                            } else {
+                                echo getSubjectTeacher("{$course['course_code']}");
+                            }
                         }
-                    }
-                ?>
-            </span>
-        </div>
+                    ?>
+                </span>
+            </div>
+        </a>
     </div>
     <?php
         }

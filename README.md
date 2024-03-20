@@ -267,6 +267,13 @@ VALUES
 (2022,3,104),
 (2020,7,105);
 
+CREATE TABLE assignment_category (
+	assignment_category_id INT PRIMARY KEY AUTO_INCREMENT,
+    category_name varchar(50) UNIQUE NOT NULL,
+    teacher_courses_id int,
+    FOREIGN KEY (teacher_courses_id) REFERENCES teacher_courses(teacher_courses_id)
+);
+
 
 //might need later codes
 
