@@ -4,6 +4,7 @@
     if (session_status() == PHP_SESSION_NONE) {
         session_start();
     }
+    $loggedInUsername = $_SESSION['username'];
     $userDetails = getDetails($loggedInUsername);
     //print_r($userDetails);
     foreach($userDetails as $detail){

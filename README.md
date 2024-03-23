@@ -300,3 +300,6 @@ SELECT course_code, course_title, semester_number FROM courses INNER JOIN batch 
             echo $detail['teacher_id'];
         }
     }
+
+    //preview
+    <iframe src="https://docs.google.com/viewerng/viewer?url=     paste_here     &embedded=true" frameborder="0"></iframe>

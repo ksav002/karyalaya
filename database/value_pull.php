@@ -70,4 +70,32 @@
         }
         return $fullName;
     }
+
+    function getCategory($courseCode){
+        $connection = connectDatabase();
+        $sql = "SELECT assignment_category_id,category_name from assignment_category INNER JOIN teacher_courses USING (teacher_courses_id) WHERE course_code = '$courseCode';";
+        $result = mysqli_query($connection,$sql);
+        if (checkResult($result,$connection) !== true){
+            return false;
+        }
+        $categoryNames = [];
+        while ($row = mysqli_fetch_assoc($result)) {
+            array_push($categoryNames, $row);
+        }
+        return $categoryNames;
+    }
+
+    function getAssignment($assignmentCategoryId){
+        $connection = connectDatabase();
+        $sql = "SELECT assignment_text,deadline,assignment_file FROM assignments where assignment_category_id='$assignmentCategoryId' ORDER BY deadline ASC;";
+        $result = mysqli_query($connection,$sql);
+        if (checkResult($result,$connection) !== true){
+            return false;
+        }
+        $assignmentQuestion = [];
+        while ($row = mysqli_fetch_assoc($result)) {
+            array_push($assignmentQuestion, $row);
+        }
+        return $assignmentQuestion;
+    }
 ?>

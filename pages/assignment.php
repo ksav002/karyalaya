@@ -13,6 +13,11 @@
     // Retrieve the name and title from the session variable
     $loggedInUsername = $_SESSION['username'];
     $title = $_SESSION['title'];
+
+    //get the course code of whichever course is clicked
+    if(isset($_GET['course_code'])) {
+        $courseCode = $_GET['course_code'];
+    }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -25,7 +30,7 @@
 <body>
     <?php include_once 'login_navbar.php'; ?>
     <div class="heading">
-        <h1>My Assignments</h1>
+        <h1><a href="dashboard.php">My Courses</a>>My Assignments</h1>
     </div>
     <?php
         if  ($_SESSION['title'] == 'teacher'){
@@ -34,47 +39,27 @@
     <div class="assignment-container">
         <div class="left">
             <div class="left-titles">
-                <!-- new category-names should be generated according to category-names in database -->
-                <div class="category-name">
-                    <span>Chapter 1</span>
+                <?php
+                    $categoryNames = getCategory($courseCode);
+                    if ($categoryNames == false){
+                        echo 'No category created.';
+                    }else {
+                        foreach ($categoryNames as $name){
+                ?>
+                <div class="category-name" onclick="loadQuestion(<?php echo $name['assignment_category_id']; ?>)">
+                    <span><?php echo $name['category_name']; ?></span>
                 </div>
-                <div class="category-name">
-                    <span>Chapter 2</span>
-                </div>
-                <div class="category-name">
-                    <span>Chapter 3</span>
-                </div>
-                <div class="category-name">
-                    <span>Chapter 4</span>
-                </div>
-                <div class="category-name">
-                    <span>Chapter 5</span>
-                </div>
-                <div class="category-name">
-                    <span>Chapter 6</span>
-                </div>
-                <div class="category-name">
-                    <span>Chapter 7</span>
-                </div>
+                <?php
+                        }
+                    }
+                ?>
             </div>
             <div class="buttons">
                 <button onclick="createCategory()">Create Category</button>
             </div>
         </div>
         <div class="right">
-            <div class="right-titles">
-                <!-- new questions should be generated according to assignments in database -->
-                <div class="question">
-                    1.Define html.
-                </div>
-                <div class="question">
-                    2.Define css.
-                </div>
-            </div>
-            <div class="buttons">
-                <button>View Submissions</button>
-                <button onclick="createQuestion()">Create Question</button>
-            </div>
+            <!-- everything here comes from fetch_questions.php through loadQuestion(): ajax -->
         </div>
     </div>
     
@@ -120,8 +105,7 @@
     <?php 
         } 
     ?>
-
-    <script src="../js/jquery.min.js"></script>
-    <script src="../js/script.js"></script>
+    <script type="text/javascript" src="../js/jquery.min.js"></script>
+    <script type="text/javascript" src="../js/script.js"></script>
 </body>
 </html>

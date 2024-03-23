@@ -41,7 +41,7 @@
         foreach ($courseNames as $course) {
     ?>
     <div class='blocks'>
-        <a href="assignment.php">
+        <a href="assignment.php?course_code=<?php echo $course['course_code']; ?>">
             <div class='left'>
                 <span><?php echo $course['course_code']; ?></span>
             </div>
