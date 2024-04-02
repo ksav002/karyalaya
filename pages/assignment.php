@@ -32,10 +32,6 @@
     <div class="heading">
         <h1><a href="dashboard.php">My Courses</a>>My Assignments</h1>
     </div>
-    <?php
-        if  ($_SESSION['title'] == 'teacher'){
-    ?>
-    <!-- for teacher html starts here -->
     <div class="assignment-container">
         <div class="left">
             <div class="left-titles">
@@ -54,9 +50,16 @@
                     }
                 ?>
             </div>
+            <?php
+                if ($title == 'teacher'){
+            ?>
             <div class="buttons">
                 <button onclick="createCategory()">Create Category</button>
+                <?php echo $name['assignment_category_id']; ?>
             </div>
+            <?php
+                }
+            ?>
         </div>
         <div class="right">
             <!-- everything here comes from fetch_questions.php through loadQuestion(): ajax -->
@@ -64,47 +67,6 @@
     </div>
     
     
-
-    <?php    
-        } 
-        if  ($_SESSION['title'] == 'student'){
-    ?>
-
-    <!-- for student html starts here -->
-    <div class="category">
-        <div class="category-title">
-            <span>Chapter 1</span>
-        </div>
-        <div class="hide-elements">
-            <div class="content">
-                <span> Assignment 1 -- Define html.</span>
-            </div>
-            <div class="buttons">
-                <button>Select File</button>
-                <button>Submit</button>
-            </div>
-        </div>
-    </div>
-
-    <div class="category">
-        <div class="category-title">
-            <span>Chapter 2</span>
-        </div>
-        <div class="hide-elements">
-            <div class="content">
-                <span> Assignment 1 -- Define js.</span>
-            </div>
-            <div class="buttons">
-                <button>Select File</button>
-                <button>Submit</button>
-            </div>
-        </div>
-    </div>
-
-
-    <?php 
-        } 
-    ?>
     <script type="text/javascript" src="../js/jquery.min.js"></script>
     <script type="text/javascript" src="../js/script.js"></script>
 </body>

@@ -90,9 +90,9 @@
                 </div>
             </div>
         </form>
-        <div class="forgot-password">
+        <!-- <div class="forgot-password">
             <a href="#">Forgot Password?</a>
-        </div>
+        </div> -->
         <p class="terms">
             By signing in, you agree to our <a href="#">terms and conditions.</a>
         </p>

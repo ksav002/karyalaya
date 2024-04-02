@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Karyalaya</title>
+    <link rel="stylesheet" href="css/new.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Gabarito:wght@400..900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+    <section class="sub-header">
+        <nav>
+            <a href="index.html" class="logo">Karyalaya</a>
+            <div class="nav-links" id="navlinks">
+                <i class="fa fa-xmark" onclick="hideMenu()"></i>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about us.html">About Us</a></li>
+                    <li><a href="contac.html">Contact Us</a></li>
+                    <li> <a href="pages/login.php" class="Login-btn">Login</a></li>
+                </ul>
+            </div>
+            <i class="fa fa-bars" onclick="showMenu()"></i>
+        </nav>
+
+        <h1>About Us</h1>
+    </section>
+
+
+<!--About Us content-->
+    <section class="about-us">
+        <div class="about-column">
+            <h1>Project Group</h1>
+            <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Odio ullam modi natus, porro beatae deserunt et maiores, in quam unde aliquid facilis laudantium quos iusto ratione omnis eum vel eligendi.
+                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Odio ullam modi natus, porro beatae deserunt et maiores, in quam unde aliquid facilis laudantium quos iusto ratione omnis eum vel eligendi
+                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Odio ullam modi natus, porro beatae deserunt et maiores, in quam unde aliquid facilis laudantium quos iusto ratione omnis eum vel eligendi
+                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Odio ullam modi natus, porro beatae deserunt et maiores, in quam unde aliquid facilis laudantium quos iusto ratione omnis eum vel eligendi
+                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Odio ullam modi natus, porro beatae deserunt et maiores, in quam unde aliquid facilis laudantium quos iusto ratione omnis eum vel eligendi
+            </p>
+            <a href="contac.html" class="Login-btn lime-btn">Contact Us</a>
+        </div>
+        <div class="about-column">
+            <img src="image/field.jpg">
+        </div>
+    </section>
+    
+    
+    
+    <!--Footer-->
+    <section class="Footer">
+        <h4>About Us</h4>
+        <p> 
+        Lorem ipsum, dolor sit amet consectetur adipisicing elit. <br>Itaque et illum nostrum, iure similique, nihil odio temporibus repudiandae dolores magnam ullam. Earum perspiciatis ipsa rerum odit veritatis magni eligendi officiis.
+        </p>
+        <div class="icon">
+            <i class="fa-brands fa-square-facebook"></i>
+            <i class="fa-brands fa-instagram"></i>
+        </div>
+        <p>Made for a Project together with effort <i class="fa-solid fa-handshake"></i></p>
+    </section>
+
+
+<!--For toggle menu-->    
+    <script>
+        var navlinks = document.getElementById("navlinks");
+        function showMenu(){
+            navlinks.style.right = "0";
+        }
+        function hideMenu(){
+            navlinks.style.right = "-200px";
+        }
+    </script>
+
+</body>
+</html>

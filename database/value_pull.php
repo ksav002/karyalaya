@@ -6,6 +6,7 @@
         session_start();
     }
 
+    //get teacher or student details
     function getDetails($username){
         $connection = connectDatabase();
         
@@ -25,11 +26,11 @@
         while ($row = mysqli_fetch_assoc($result)) {
             array_push($userDetails, $row);
        }
-       //print_r($userDetails);
        return $userDetails;
 
     }
 
+    //get course details
     function getCourse($value){
         $connection = connectDatabase();
 
@@ -71,6 +72,7 @@
         return $fullName;
     }
 
+    //get the category of a subject
     function getCategory($courseCode){
         $connection = connectDatabase();
         $sql = "SELECT assignment_category_id,category_name from assignment_category INNER JOIN teacher_courses USING (teacher_courses_id) WHERE course_code = '$courseCode';";
@@ -85,6 +87,7 @@
         return $categoryNames;
     }
 
+    //get the assignments of respective categories
     function getAssignment($assignmentCategoryId){
         $connection = connectDatabase();
         $sql = "SELECT assignment_text,deadline,assignment_file FROM assignments where assignment_category_id='$assignmentCategoryId' ORDER BY deadline ASC;";

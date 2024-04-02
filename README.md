@@ -274,6 +274,16 @@ CREATE TABLE assignment_category (
     FOREIGN KEY (teacher_courses_id) REFERENCES teacher_courses(teacher_courses_id)
 );
 
+CREATE TABLE chosen_electives (
+    elective_id int PRIMARY KEY AUTO_INCREMENT,
+    student_id int,
+    semester_number SMALLINT,
+    elective_courses_code varchar(10),
+    FOREIGN KEY (student_id) REFERENCES students(student_id),
+    FOREIGN KEY (semester_number) REFERENCES semesters(semester_number),
+    FOREIGN KEY (elective_courses_code) REFERENCES courses(course_code)
+);
+
 
 //might need later codes
 
@@ -303,3 +313,16 @@ SELECT course_code, course_title, semester_number FROM courses INNER JOIN batch 
 
     //preview
     <iframe src="https://docs.google.com/viewerng/viewer?url=     paste_here     &embedded=true" frameborder="0"></iframe>
+
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            document.querySelector(".right").innerHTML = this.responseText;
+        }
+    };
+    // Open a POST request to fetch_questions.php and send the category ID
+    xhttp.open("POST", "fetch_questions.php",true);
+    // post method use garda chahinxa yo
+    xhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    // Send the request with the category ID
+    xhttp.send("categoryId=" + categoryId);
