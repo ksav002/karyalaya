@@ -18,6 +18,19 @@
     if(isset($_GET['course_code'])) {
         $courseCode = $_GET['course_code'];
     }
+
+    //get the data inserted in the popup modal forms so that it can be passed to insert in db
+    if (isset($_POST['createCategory'])){
+        $category_name = $_POST['category_name'];
+        $result = createCategory($_SESSION['teacher_id'],$_GET['course_code'],$category_name);
+        if ($result == true){
+            // Redirect back to the same page to prevent form resubmission
+            header("Location: ".$_SERVER['PHP_SELF']."?course_code=".$courseCode);
+            exit();
+        } else {
+            $err['error-message'] = 'Category already exists';
+        }
+    }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -36,7 +49,7 @@
         <div class="left">
             <div class="left-titles">
                 <?php
-                    $categoryNames = getCategory($courseCode);
+                    $categoryNames = getCategory($_SESSION['teacher_id'],$courseCode);
                     if ($categoryNames == false){
                         echo 'No category created.';
                     }else {
@@ -54,8 +67,7 @@
                 if ($title == 'teacher'){
             ?>
             <div class="buttons">
-                <button onclick="createCategory()">Create Category</button>
-                <?php echo $name['assignment_category_id']; ?>
+                <a href="#create-category" rel="modal:open">Create Category</a>  <!-- make this look like a button --> 
             </div>
             <?php
                 }
@@ -66,8 +78,40 @@
         </div>
     </div>
     
-    
+
+    <!-- this is for the popup modals -->
+    <div id="create-category" class="modal">
+        <form action="" method="post" onsubmit="return validateCreateCategoryForm()">
+            <div class="input-control">
+                <label for="category-name">Enter category name:</label>
+                <input type="textbox" id="category-name" name="category_name">
+                <span class="error" id="category-name-error"><?php if (isset($err['category_name'])){echo $err['category_name'];} ?></span>
+            </div>
+            <div class="form-button">
+                <input type="submit" value="Create" name="createCategory">
+            </div>
+        </form>
+    </div>
+    <!-- after submission error modal -->
+    <div id="error-after-submission" class="modal">
+        <span id="error-message"></span>
+    </div>
+
+
+
     <script type="text/javascript" src="../js/jquery.min.js"></script>
     <script type="text/javascript" src="../js/script.js"></script>
+
+    <!-- jQuery Modal -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.2/jquery.modal.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.2/jquery.modal.min.css" />
+
+    <!-- displays error message if there is error returning from the backend -->
+    <?php if (isset($err['error-message'])){ ?>
+        <script>
+            displayErrorModal("<?php echo $err['error-message']; ?>");
+        </script>
+    <?php } ?>
+
 </body>
 </html>

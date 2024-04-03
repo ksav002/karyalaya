@@ -6,7 +6,6 @@
     }
     $loggedInUsername = $_SESSION['username'];
     $userDetails = getDetails($loggedInUsername);
-    //print_r($userDetails);
     foreach($userDetails as $detail){
         $name = $detail['fname'] . ' ' . $detail['lname'];
     }

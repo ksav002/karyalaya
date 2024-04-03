@@ -49,3 +49,26 @@ function loadAccordion(){
         });
       });
 }
+
+function validateCreateCategoryForm(){
+    
+    //for validation of category
+    var categoryName = document.getElementById('category-name').value.trim();
+    var errorSpan = document.getElementById('category-name-error');
+
+    if (categoryName === '') {
+        errorSpan.textContent = 'Please enter a category name';
+        return false;
+    } else{
+        errorSpan.textContent = '';
+        return true;
+    }
+}
+
+// Function to display error modal from backend
+function displayErrorModal(errorMessage) {
+    $(document).ready(function() {
+        $('#error-after-submission').modal('open');
+        $('#error-message').text(errorMessage);
+    });
+}

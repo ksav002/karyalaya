@@ -326,3 +326,12 @@ SELECT course_code, course_title, semester_number FROM courses INNER JOIN batch 
     xhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
     // Send the request with the category ID
     xhttp.send("categoryId=" + categoryId);
+
+ INSERT INTO assignment_category (teacher_courses_id, category_name) VALUES ('$teacherCoursesId','$input_value');
+
+     //this is to check so that if duplicate category message is displayed, the form won't submit again and the error won't be shown multiple times on reload
+    // Check if there is any error message displayed
+    if (errorMessage !== '') {
+        // If error message is displayed, prevent form submission
+        return false;
+    }

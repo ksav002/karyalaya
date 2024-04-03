@@ -33,20 +33,16 @@
     //get course details
     function getCourse($value){
         $connection = connectDatabase();
-
         if ($_SESSION['title'] == 'teacher'){
             $sql = "SELECT course_code, course_title,semester_number FROM courses INNER JOIN teacher_courses USING (course_code) WHERE teacher_id=$value AND active_status=1;";
         }
         else if ($_SESSION['title'] == 'student'){
             $sql = "SELECT course_code, course_title FROM courses INNER JOIN batch USING (semester_number) WHERE semester_number='$value';";
         }
-
         $result = mysqli_query($connection,$sql);
-
         if (checkResult($result,$connection) !== true){
             exit();
         }
-
         $courseNames = [];
         while ($row = mysqli_fetch_assoc($result)) {
             array_push($courseNames, $row);
@@ -73,9 +69,9 @@
     }
 
     //get the category of a subject
-    function getCategory($courseCode){
+    function getCategory($teacherId,$courseCode){
         $connection = connectDatabase();
-        $sql = "SELECT assignment_category_id,category_name from assignment_category INNER JOIN teacher_courses USING (teacher_courses_id) WHERE course_code = '$courseCode';";
+        $sql = "SELECT teacher_courses_id,assignment_category_id,category_name from assignment_category INNER JOIN teacher_courses USING (teacher_courses_id) WHERE teacher_id = '$teacherId' AND course_code = '$courseCode' AND active_status='1';";
         $result = mysqli_query($connection,$sql);
         if (checkResult($result,$connection) !== true){
             return false;

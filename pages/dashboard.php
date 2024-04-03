@@ -18,6 +18,7 @@
     foreach($userDetails as $detail){
         if ($title == 'teacher'){
             $value = $detail['teacher_id'];
+            $_SESSION['teacher_id'] = $detail['teacher_id'];
         } else if($title == 'student') {
             $value = $detail['semester_number'];
         }

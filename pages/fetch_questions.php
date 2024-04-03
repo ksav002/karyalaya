@@ -1,5 +1,13 @@
 <?php
+error_reporting();
 include_once '../database/value_pull.php';
+
+// Check if the user is logged in
+if (!isset($_SESSION['username'])) {
+    // Redirect the user to the login page if not logged in
+    header("Location: login.php");
+    exit(); // Stop executing the script
+}
 
 // Check if the category ID is set in the POST request
 if(isset($_POST['categoryId'])) {
@@ -7,9 +15,7 @@ if(isset($_POST['categoryId'])) {
     // Get the category ID from the POST request
     $categoryId = $_POST['categoryId'];
 
-    // Implement your logic to fetch assignment questions based on the category ID
     $assignmentQuestions = getAssignment($categoryId);
-
     // Check if assignment questions were fetched successfully
     if($assignmentQuestions !== false) {
         $questionDetails =  $assignmentQuestions;
@@ -17,10 +23,12 @@ if(isset($_POST['categoryId'])) {
     } else {
         // If no assignment questions were found for the provided category ID
         echo "No assignment questions found for this category.";
+        exit();
     }
 } else {
     // If category ID is not set in the POST request
     echo "Category ID not provided.";
+    exit();
 }
 $title = $_SESSION['title'];
 ?>
