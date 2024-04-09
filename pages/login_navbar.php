@@ -23,7 +23,7 @@
         </p>
     </div>
     <div class="nav-button">
-        <button onclick="window.location.href='sign_out.php';">Sign Out</button>
+        <a href="sign_out.php"><button onclick="return confirm('Are you sure you want to sign out?');">Sign Out</button></a>
     </div>
 </div>
 

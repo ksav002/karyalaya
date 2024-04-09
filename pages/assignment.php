@@ -49,7 +49,15 @@
         <div class="left">
             <div class="left-titles">
                 <?php
-                    $categoryNames = getCategory($_SESSION['teacher_id'],$courseCode);
+                    if ($title == 'teacher'){
+                        $categoryNames = getCategory($_SESSION['teacher_id'],$courseCode);
+                    } elseif ($title == 'student') {
+                        $teacherId = getSubjectTeacher($courseCode);
+                        foreach ($teacherId as $teacherId) {
+                            $teacherId = $teacherId['teacher_id'];
+                        }
+                        $categoryNames = getCategory($teacherId,$courseCode);
+                    }
                     if ($categoryNames == false){
                         echo 'No category created.';
                     }else {
@@ -67,7 +75,7 @@
                 if ($title == 'teacher'){
             ?>
             <div class="buttons">
-                <a href="#create-category" rel="modal:open">Create Category</a>  <!-- make this look like a button --> 
+                <a href="#create-category" rel="modal:open"><button>Create Category</button></a>
             </div>
             <?php
                 }
@@ -79,7 +87,7 @@
     </div>
     
 
-    <!-- this is for the popup modals -->
+    <!-- this is for the popup modals of create category -->
     <div id="create-category" class="modal">
         <form action="" method="post" onsubmit="return validateCreateCategoryForm()">
             <div class="input-control">
@@ -92,16 +100,37 @@
             </div>
         </form>
     </div>
+
+    <!-- this is for the popup modals of create assignment -->
+    <div id="create-assignment" class="modal">
+    <form action="" method="post" onsubmit="return validateCreateAssignmentForm()">
+            <div class="input-control">
+                <label for="assignment-text">Enter assignment text:</label><br>
+                <textarea rows="5" cols="57" id="assignment-text" name="assignment_text"></textarea>
+                <span class="error" id="assignment-text-error"></span>
+            </div>
+            <div class="input-control">
+                <label for="assignment-deadline">Select deadline for this assignment:</label>
+                <input type="date" id="assignment-deadline" name="assignment_deadline">
+                <span class="error" id="assignment-deadline-error"></span>
+            </div>
+            <div class="input-control">
+                <label for="assignment-file">Select file for this assignment(If required):</label>
+                <input type="file">
+            </div>
+            <div class="form-button">
+                <input type="submit" value="Create" name="createAssignment">
+            </div>
+        </form>
+    </div>
+
     <!-- after submission error modal -->
     <div id="error-after-submission" class="modal">
         <span id="error-message"></span>
     </div>
 
-
-
-    <script type="text/javascript" src="../js/jquery.min.js"></script>
     <script type="text/javascript" src="../js/script.js"></script>
-
+    <script type="text/javascript" src="../js/jquery.min.js"></script>
     <!-- jQuery Modal -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.2/jquery.modal.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.2/jquery.modal.min.css" />

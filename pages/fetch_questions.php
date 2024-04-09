@@ -19,10 +19,10 @@ if(isset($_POST['categoryId'])) {
     // Check if assignment questions were fetched successfully
     if($assignmentQuestions !== false) {
         $questionDetails =  $assignmentQuestions;
-        
     } else {
         // If no assignment questions were found for the provided category ID
         echo "No assignment questions found for this category.";
+        //also need a way to show create assignment button // howw
         exit();
     }
 } else {
@@ -71,7 +71,8 @@ if ($title == 'teacher'){
     <div class="hidden-button">
         <button>View Submissions</button>
     </div>
-    <button onclick="createQuestion()">Create Question</button>
+    <!-- <button onclick="createQuestion()">Create Question</button> -->
+    <a href="#create-assignment" data-modal="#create-assignment" rel="modal:open"><button>Create Assignment</button></a>
 </div>
 
 <?php
@@ -85,4 +86,6 @@ if ($title == 'student'){
 <?php
 }
 ?>
+
+
 <script type="text/javascript" src="../js/jquery.min.js"></script>

@@ -54,9 +54,14 @@
                             echo 'Semester '.$course['semester_number'];
                         } else if($title == 'student') {
                             if (getSubjectTeacher("{$course['course_code']}") == false){
+                                //tyo subject lai teacher assign navako case ma
                                 echo 'No teacher assigned';
                             } else {
-                                echo getSubjectTeacher("{$course['course_code']}");
+                                //subject padaune teacher ko name dekhauna lai
+                                $teacherIdName = getSubjectTeacher("{$course['course_code']}");
+                                foreach ($teacherIdName as $teacherIdName){
+                                    echo $teacherIdName['fname'].' '.$teacherIdName['lname'];
+                                }
                             }
                         }
                     ?>

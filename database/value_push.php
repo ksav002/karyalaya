@@ -16,7 +16,7 @@
             $row = mysqli_fetch_assoc($result);
             $teacherCoursesId = $row['teacher_courses_id'];
             //to check if the given category already exists
-            $sql = "SELECT category_name FROM assignment_category WHERE category_name = '$input_value';";
+            $sql = "SELECT category_name FROM assignment_category WHERE category_name = '$input_value' and teacher_courses_id='$teacherCoursesId';";
             $result = mysqli_query($connection,$sql);
             //check if it returns any rows or not, if it does there is already a category of that name in there
             if(mysqli_num_rows($result) == 1){

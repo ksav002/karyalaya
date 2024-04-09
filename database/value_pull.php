@@ -51,21 +51,19 @@
     }
 
     //for showing name of teacher in student dashboard
+    //and showing the categories after a subject has been clicked based on getCategory()
     function getSubjectTeacher($course_code){
         $connection = connectDatabase();
-        $sql = "SELECT fname, lname from teachers INNER JOIN teacher_courses USING (teacher_id) WHERE course_code='$course_code' AND teacher_courses.active_status=1";
+        $sql = "SELECT teacher_id,fname, lname from teachers INNER JOIN teacher_courses USING (teacher_id) WHERE course_code='$course_code' AND teacher_courses.active_status=1";
         $result = mysqli_query($connection,$sql);
         if (checkResult($result,$connection) !== true){
             return false;
         }
-        $teacherName = [];
+        $teacherIdName = [];
         while ($row = mysqli_fetch_assoc($result)) {
-            array_push($teacherName, $row);
+            array_push($teacherIdName, $row);
         }
-        foreach ($teacherName as $name){
-            $fullName = $name['fname'].' '.$name['lname'];
-        }
-        return $fullName;
+        return $teacherIdName;
     }
 
     //get the category of a subject
