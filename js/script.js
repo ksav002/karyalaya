@@ -83,10 +83,11 @@ function validateCreateAssignmentForm(){
     }
 }
 
+
 // Function to display error modal from backend
 function displayErrorModal(errorMessage) {
     $(document).ready(function() {
-        $('#error-after-submission').modal('open');
+        $('#error-after-submission').modal();
         $('#error-message').text(errorMessage);
     });
 }

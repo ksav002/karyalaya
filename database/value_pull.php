@@ -1,4 +1,5 @@
 <?php
+    error_reporting();
     include_once 'connect.php';
     include_once 'check_result.php';
 
@@ -31,13 +32,30 @@
     }
 
     //get course details
-    function getCourse($value){
+    function getCourse($stdId,$value){
         $connection = connectDatabase();
         if ($_SESSION['title'] == 'teacher'){
             $sql = "SELECT course_code, course_title,semester_number FROM courses INNER JOIN teacher_courses USING (course_code) WHERE teacher_id=$value AND active_status=1;";
         }
         else if ($_SESSION['title'] == 'student'){
-            $sql = "SELECT course_code, course_title FROM courses INNER JOIN batch USING (semester_number) WHERE semester_number='$value';";
+            //7 ki 8 sem lai electives choose garna parni vayo so 
+            //if ma 7 ra 8 banek arulai course select
+            if ($value !== '7' && $value !== '8') {
+                $sql = "SELECT course_code, course_title FROM courses INNER JOIN batch USING (semester_number) WHERE semester_number='$value';";
+            } 
+            //else ma 7 ra 8 lai course select
+            else {
+                $sql = "SELECT course_code,course_title
+                FROM courses
+                INNER JOIN batch USING (semester_number)
+                LEFT JOIN (
+                    SELECT DISTINCT chosen_electives.student_id, chosen_electives.semester_number, chosen_electives.elective_courses_code
+                    FROM chosen_electives
+                    WHERE chosen_electives.student_id = '$stdId' AND chosen_electives.semester_number = '$value'
+                ) AS chosen ON courses.course_code = chosen.elective_courses_code
+                WHERE courses.semester_number='$value' AND (courses.elective_subject = 0 OR (courses.elective_subject = 1 AND chosen.student_id IS NOT NULL));
+                "; 
+            }
         }
         $result = mysqli_query($connection,$sql);
         if (checkResult($result,$connection) !== true){

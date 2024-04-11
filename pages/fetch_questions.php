@@ -14,7 +14,7 @@ if(isset($_POST['categoryId'])) {
 
     // Get the category ID from the POST request
     $categoryId = $_POST['categoryId'];
-
+    
     $assignmentQuestions = getAssignment($categoryId);
     // Check if assignment questions were fetched successfully
     if($assignmentQuestions !== false) {
@@ -71,7 +71,6 @@ if ($title == 'teacher'){
     <div class="hidden-button">
         <button>View Submissions</button>
     </div>
-    <!-- <button onclick="createQuestion()">Create Question</button> -->
     <a href="#create-assignment" data-modal="#create-assignment" rel="modal:open"><button>Create Assignment</button></a>
 </div>
 
@@ -86,6 +85,5 @@ if ($title == 'student'){
 <?php
 }
 ?>
-
 
 <script type="text/javascript" src="../js/jquery.min.js"></script>
