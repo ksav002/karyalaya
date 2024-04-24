@@ -8,7 +8,6 @@ function loadQuestion(categoryId){
             // On success, update the .right element's HTML with the response
             $(".right").html(response);
             loadAccordion(); // Call loadAccordion here
-            keepSelected();
         },
         error: function(xhr, status, error) {
             // Optionally handle errors
@@ -30,7 +29,7 @@ function keepSelected(){
 }
 
 function loadAccordion(){
-    jQuery(document).ready(function($) {
+    $(document).ready(function($) {
         //initially hide the question and preview part and the buttons
         $('.assignment-title .question').hide();
         $('.hidden-button').hide();
@@ -83,11 +82,13 @@ function validateCreateAssignmentForm(){
     }
 }
 
-
 // Function to display error modal from backend
 function displayErrorModal(errorMessage) {
     $(document).ready(function() {
-        $('#error-after-submission').modal();
+        $('#error-after-submission').modal({
+            fadeDuration:200,
+            closeExisting:false
+        });
         $('#error-message').text(errorMessage);
     });
 }

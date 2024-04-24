@@ -8,22 +8,18 @@ if (!isset($_SESSION['username'])) {
     header("Location: login.php");
     exit(); // Stop executing the script
 }
-
+print_r($_POST);
 // Check if the category ID is set in the POST request
 if(isset($_POST['categoryId'])) {
-
     // Get the category ID from the POST request
     $categoryId = $_POST['categoryId'];
-    
     $assignmentQuestions = getAssignment($categoryId);
     // Check if assignment questions were fetched successfully
     if($assignmentQuestions !== false) {
         $questionDetails =  $assignmentQuestions;
     } else {
         // If no assignment questions were found for the provided category ID
-        echo "No assignment questions found for this category.";
-        //also need a way to show create assignment button // howw
-        exit();
+        $noAssignmentError = "No assignment questions found for this category.";
     }
 } else {
     // If category ID is not set in the POST request
@@ -33,12 +29,16 @@ if(isset($_POST['categoryId'])) {
 $title = $_SESSION['title'];
 ?>
 
+<!-- if no assignment error is shown, this if ststement ensures that the button to create assignment is still shown -->
+<?php if(isset($noAssignmentError)) { ?>
+    <div class="error-message"><?php echo $noAssignmentError;?></div>
+<?php } else { ?>
 
 <div class="right-titles">
-<?php
-    $assignmentNumber = 1; //yo chai assignment number 1,2,3... garna lai //ahile chai initialize ani paxi chai increment
-    foreach($questionDetails as $details){
-?>
+    <?php
+        $assignmentNumber = 1; //yo chai assignment number 1,2,3... garna lai //ahile chai initialize ani paxi chai increment
+        foreach($questionDetails as $details){
+    ?>
     <div class="assignment-title">
         <div class="title-name">
             <span>Assignment <?php echo $assignmentNumber++ ?></span>
@@ -58,9 +58,10 @@ $title = $_SESSION['title'];
             ?>
         </div>
     </div>
-<?php
-}
-?>
+    <?php
+        }
+    }
+    ?>
 </div>
 
 <?php
@@ -69,7 +70,11 @@ if ($title == 'teacher'){
 
 <div class="buttons">
     <div class="hidden-button">
-        <button>View Submissions</button>
+    <form action="submission.php" method="post">
+            <input type="hidden" name="assignmentId" value="<?php echo $assignmentId; ?>">
+            <input type="hidden" name="teacherCoursesId" value="<?php echo $teacherCoursesId; ?>">
+            <button type="submit">View Submissions</button>
+        </form>
     </div>
     <a href="#create-assignment" data-modal="#create-assignment" rel="modal:open"><button>Create Assignment</button></a>
 </div>

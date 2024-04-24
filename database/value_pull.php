@@ -31,7 +31,7 @@
 
     }
 
-    //get course details
+    //get course details where value is teacher_id for teacher and semester_number for students
     function getCourse($stdId,$value){
         $connection = connectDatabase();
         if ($_SESSION['title'] == 'teacher'){

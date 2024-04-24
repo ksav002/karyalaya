@@ -7,7 +7,7 @@
     $loggedInUsername = $_SESSION['username'];
     $userDetails = getDetails($loggedInUsername);
     foreach($userDetails as $detail){
-        $name = $detail['fname'] . ' ' . $detail['lname'];
+        $name = $detail['fname']. ' ' .$detail['lname'];
     }
 ?>
 
@@ -17,9 +17,9 @@
     </div>
     <div class="nav-welcome">
         <p>
-            Hi, <?php echo $name; ?>
-            <!-- <br>
-            <em>//<?php echo $_SESSION['title']; ?></em> -->
+            <?php echo $name; ?>
+            <br>
+            <em><?php echo ucfirst(strtolower($_SESSION['title'])) ?></em>
         </p>
     </div>
     <div class="nav-button">

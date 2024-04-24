@@ -19,6 +19,13 @@
     if(isset($_GET['course_code'])) {
         $courseCode = $_GET['course_code'];
     }
+    if($title == 'student') {
+        $userDetails = getDetails($loggedInUsername);
+        foreach($userDetails as $detail){
+            $stdId = $detail['student_id'];
+            $semesterNumber = $detail['semester_number'];
+        }
+    }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -32,6 +39,21 @@
     <?php include_once 'login_navbar.php'; ?>
     <div class="heading">
         <h1><a href="dashboard.php">My Courses</a>>My Assignments</h1>
+    </div>
+    <div class="course-title">
+        <?php
+            if ($title == 'teacher'){
+                $courseName = getCourse(null,$_SESSION['teacher_id']);
+            } else if ($title == 'student'){
+                $courseName = getCourse($stdId,$semesterNumber);
+            }
+            foreach($courseName as $courseName){
+                if ($courseName['course_code'] == $_GET['course_code']){
+                    echo $courseName['course_title'];
+                    break;
+                }
+            }
+        ?>
     </div>
     <div class="assignment-container">
         <div class="left">
@@ -51,7 +73,7 @@
                     }else {
                         foreach ($categoryNames as $name){
                 ?>
-                <div class="category-name" onclick="loadQuestion(<?php echo $name['assignment_category_id']; ?>)">
+                <div class="category-name" onclick="loadQuestion(<?php echo $name['assignment_category_id'];?>); keepSelected()">
                     <span><?php echo $name['category_name']; ?></span>
                 </div>
                 <?php
