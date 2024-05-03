@@ -36,14 +36,13 @@
     function createAssignment($assignment_category_id,$assignment_text,$assignment_deadline,$assignment_file){
         try{
             $connection = connectDatabase();
-            var_dump($assignment_file);
             //insert the data
-            if ($assignment_file == null){
+            if ($assignment_file['name'] == null){
                 //if file is not present               
                 $sql = "INSERT INTO assignments(assignment_category_id,assignment_text,deadline) VALUES ('$assignment_category_id','$assignment_text','$assignment_deadline');";
             } else {
-                //if file is uploaded
-                //insert query here
+                //if file is present
+                $sql = "INSERT INTO assignments(assignment_category_id,assignment_text,deadline,assignment_file) VALUES ('$assignment_category_id','$assignment_text','$assignment_deadline','$assignment_file');";
                 }
             mysqli_query($connection,$sql);
             return true;

@@ -113,4 +113,19 @@
         }
         return $assignmentQuestion;
     }
+
+    function getSubmission($assignmentId,$teacherCoursesId){
+        $connection = connectDatabase();
+        $sql = "SELECT fname,lname,submission_file FROM submission INNER JOIN students USING (student_id) where assignment_id='$assignmentId' AND teacher_courses_id='$teacherCoursesId';";
+
+        $result = mysqli_query($connection,$sql);
+        if (checkResult($result,$connection) !== true){
+            return false;
+        }
+        $submissionResult = [];
+        while ($row = mysqli_fetch_assoc($result)) {
+            array_push($submissionResult, $row);
+        }
+        return $submissionResult;
+    }
 ?>

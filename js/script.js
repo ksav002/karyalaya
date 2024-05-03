@@ -1,5 +1,6 @@
 //loads questions using fetch_question within the right container of assignment page
 function loadQuestion(categoryId){
+    $('#category-id').val(categoryId);
     $.ajax({
         type: "POST", // Use POST as the method
         url: "fetch_questions.php", // The URL to send the request to

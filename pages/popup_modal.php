@@ -30,12 +30,39 @@
         $assignment_deadline = $_POST['assignment_deadline'];
         // Check if file is uploaded
         if(isset($_FILES['assignment_file'])) {
-            $assignment_file = $_FILES['assignment_file']['name'];
+            $assignment_file = $_FILES['assignment_file'];
+            //allowed file types
+            $allowed_file_type = ['application/pdf'];
+            
+            if(in_array($assignment_file['type'],$allowed_file_type)){
+                if($assignment_file['error'] == 0 ){
+                    if ($assignment_file['size'] <= 15728640){
+                        //creates a unique name so that new file doesn't overwrite old one with same name
+                        $file_extension = pathinfo($assignment_file['name'], PATHINFO_EXTENSION);
+                        $file_new_name = uniqid('question_', true) . '.' . $file_extension;
+                        //provides file path to put the file in
+                        $file_destination = '../user uploads/' . $file_new_name;
+                        if (move_uploaded_file($assignment_file['tmp_name'],$file_destination)){
+                            echo 'File uploaded successfully';
+                            $result = createAssignment($category_id,$assignment_text,$assignment_deadline,$file_new_name);
+                        } else {
+                            $err['error-message'] = 'File could not be uploaded to the specified path';
+                        }    
+                    } else {
+                        $err['error-message'] = 'File size must be less than 15 MB';
+                    }
+                } else {
+                    $err['error-message'] = 'Error occured while uploading file';
+                }
+            } else {
+                $err['error-message'] = 'Only pdf is allowed';
+            }
+
         } else {
             // Set $assignment_file to null when no file is uploaded
             $assignment_file = null;
+            $result = createAssignment($category_id,$assignment_text,$assignment_deadline,$assignment_file);
         }
-        $result = createAssignment($category_id,$assignment_text,$assignment_deadline,$assignment_file);
         if ($result == true){
             // Redirect back to the same page to prevent form resubmission
             header("Location: ".$_SERVER['PHP_SELF']."?course_code=".$courseCode);
@@ -64,7 +91,7 @@
 <div id="create-assignment" class="modal">
     <form action="" method="post" enctype="multipart/form-data" onsubmit="return validateCreateAssignmentForm()">
         <div class="input-control">
-            <input type="hidden" id="category-id" name="category_id" value="2"> <!-- how to pass category id in here/value -->
+            <input type="hidden" id="category-id" name="category_id" value="">
         </div>
         <div class="input-control">
             <label for="assignment-text">Enter assignment text:</label><br>
@@ -77,7 +104,7 @@
             <span class="error" id="assignment-deadline-error"></span>
         </div>
         <div class="input-control">
-            <label for="assignment-file">Select file for this assignment(If required):</label>
+            <label for="assignment-file">If files are required select here(only pdf files):</label>
             <input type="file" name="assignment_file">
         </div>
         <div class="form-button">

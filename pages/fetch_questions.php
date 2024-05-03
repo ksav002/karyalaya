@@ -8,7 +8,6 @@ if (!isset($_SESSION['username'])) {
     header("Location: login.php");
     exit(); // Stop executing the script
 }
-print_r($_POST);
 // Check if the category ID is set in the POST request
 if(isset($_POST['categoryId'])) {
     // Get the category ID from the POST request
@@ -85,7 +84,7 @@ if ($title == 'student'){
 ?>
 <div class="buttons">
     <button>Select file</button>
-    <button>Upload file</button> <!-- form use nagari file upload garna milxa ki mildaina -->
+    <button>Upload file</button>
 </div>
 <?php
 }
