@@ -37,7 +37,7 @@
         try{
             $connection = connectDatabase();
             //insert the data
-            if ($assignment_file['name'] == null){
+            if ($assignment_file == null){
                 //if file is not present               
                 $sql = "INSERT INTO assignments(assignment_category_id,assignment_text,deadline) VALUES ('$assignment_category_id','$assignment_text','$assignment_deadline');";
             } else {

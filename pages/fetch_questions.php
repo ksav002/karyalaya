@@ -40,17 +40,17 @@ $title = $_SESSION['title'];
     ?>
     <div class="assignment-title">
         <div class="title-name">
-            <span>Assignment <?php echo $assignmentNumber++ ?></span>
+            <span>Assignment <?php echo $assignmentNumber++ ?> ▼ </span>
             <span><?php echo $details['deadline']; ?></span>
         </div>
         <div class="question">
             <span><?php echo $details['assignment_text']; ?></span>
             <!-- for preview -->
             <?php
-                if ($details['assignment_file'] !== NULL){
+                if ($details['assignment_file'] !== ''){
+                    $file_name = $details['assignment_file'];
             ?> 
-
-                <a href="preview.php" target="_blank">Preview</a>
+                <button onclick="previewFile('<?php echo $file_name; ?>')">Preview</button>
 
             <?php
                 }
@@ -91,3 +91,4 @@ if ($title == 'student'){
 ?>
 
 <script type="text/javascript" src="../js/jquery.min.js"></script>
+<script type="text/javascript" src="../js/script.js"></script>   

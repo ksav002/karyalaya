@@ -93,3 +93,11 @@ function displayErrorModal(errorMessage) {
         $('#error-message').text(errorMessage);
     });
 }
+
+//displays the preview of file
+function previewFile(fileName){
+    if (fileName !== ''){
+        var filePath = "../user uploads/" + fileName;
+        window.open (filePath,'_blank');
+    }
+}
