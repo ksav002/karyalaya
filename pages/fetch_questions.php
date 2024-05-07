@@ -28,7 +28,7 @@ if(isset($_POST['categoryId'])) {
 $title = $_SESSION['title'];
 ?>
 
-<!-- if no assignment error is shown, this if ststement ensures that the button to create assignment is still shown -->
+<!-- if no assignment error is shown, this if statement ensures that the button to create assignment is still shown -->
 <?php if(isset($noAssignmentError)) { ?>
     <div class="error-message"><?php echo $noAssignmentError;?></div>
 <?php } else { ?>
@@ -38,7 +38,7 @@ $title = $_SESSION['title'];
         $assignmentNumber = 1; //yo chai assignment number 1,2,3... garna lai //ahile chai initialize ani paxi chai increment
         foreach($questionDetails as $details){
     ?>
-    <div class="assignment-title">
+    <div class="assignment-title" data-assignment-id="<?php echo $details['assignment_id']; ?>">
         <div class="title-name">
             <span>Assignment <?php echo $assignmentNumber++ ?> ▼ </span>
             <span><?php echo $details['deadline']; ?></span>
@@ -70,8 +70,8 @@ if ($title == 'teacher'){
 <div class="buttons">
     <div class="hidden-button">
     <form action="submission.php" method="post">
-            <input type="hidden" name="assignmentId" value="<?php echo $assignmentId; ?>">
-            <input type="hidden" name="teacherCoursesId" value="<?php echo $teacherCoursesId; ?>">
+            <input type="hidden" name="assignmentId" id="assignment-id" value=""> <!-- value in here comes from js -->
+            <input type="hidden" name="teacherCoursesId" id="teacher-courses-id" value="<?php if(isset($_POST['teacherCoursesId'])){ echo $_POST['teacherCoursesId'];} ?>">
             <button type="submit">View Submissions</button>
         </form>
     </div>
@@ -83,8 +83,9 @@ if ($title == 'teacher'){
 if ($title == 'student'){
 ?>
 <div class="buttons">
-    <button>Select file</button>
-    <button>Upload file</button>
+    <div class="hidden-button">
+        <a href="#submit-file" data-modal="#submit-file" rel="modal:open"><button>Submit File</button></a>
+    </div>
 </div>
 <?php
 }

@@ -1,10 +1,11 @@
 //loads questions using fetch_question within the right container of assignment page
-function loadQuestion(categoryId){
-    $('#category-id').val(categoryId);
+function loadQuestion(assignmentCategoryId,teacherCoursesId){
+    $('#category-id').val(assignmentCategoryId);
+    $('#teacher-courses-id').val(teacherCoursesId);
     $.ajax({
         type: "POST", // Use POST as the method
         url: "fetch_questions.php", // The URL to send the request to
-        data: {categoryId: categoryId}, // Data to send in the request
+        data: {categoryId: assignmentCategoryId, teacherCoursesId: teacherCoursesId}, // Data to send in the request
         success: function(response) {
             // On success, update the .right element's HTML with the response
             $(".right").html(response);
@@ -29,25 +30,36 @@ function keepSelected(){
     });
 }
 
-function loadAccordion(){
-    $(document).ready(function($) {
-        //initially hide the question and preview part and the buttons
+function loadAccordion() {
+    $(document).ready(function() {
+        // Initially hide the question and preview part (and the buttons for both teacher and student)
         $('.assignment-title .question').hide();
         $('.hidden-button').hide();
 
-        //then show the content of whichever clicked
-        $('.assignment-title .title-name').click(function(){
-          $(this).siblings('.question').slideToggle('slow', function(){  //Expand or collapse this(selected) panel
-            if ($('.assignment-title .question').is(':visible')) {   //After toggle, check if any question is visible
-                $('.buttons .hidden-button').show(); //If any question is visible, show the button
-            } else { 
-                $('.buttons .hidden-button').hide();  //If no questions are visible, hide the button
-            }
-          });
-          $(".assignment-title .question").not($(this).siblings('.question')).slideUp('slow');  //Hide the other panels
+        // Show the content of whichever clicked
+        $('.assignment-title .title-name').click(function() {
+            var $assignmentTitle = $(this).closest('.assignment-title'); // selects the closest ancestor
+            var $question = $assignmentTitle.find('.question'); // selects the question related to that title
+            var assignmentId = $assignmentTitle.data('assignment-id'); // Retrieve assignment id which is set in data-assignment-id 
+
+            // Expand or collapse this (selected) panel
+            $question.slideToggle('slow', function() {
+                // After toggle, check if this question is visible
+                var isVisible = $question.is(':visible');
+                $('.buttons .hidden-button').toggle(isVisible);
+
+                // If the question is visible, set the assignment ID in the form hidden field for viewing submissions and submitting file
+                if (isVisible) {
+                    $('#assignment-id').val(assignmentId);
+                }
+            });
+
+            // Hide the other panels
+            $(".assignment-title .question").not($question).slideUp('slow');
         });
-      });
+    });
 }
+
 
 function validateCreateCategoryForm(){
     //for validation of category
@@ -83,12 +95,24 @@ function validateCreateAssignmentForm(){
     }
 }
 
+function validateSubmitFileForm(){
+    var submittedFile = document.getElementById('submitted-file');
+    var fileError = document.getElementById('submit-file-error');
+
+    fileError.textContent = '';
+     if (submittedFile.files.length === 0){
+        fileError.textContent = 'Please select a file to upload';
+        return false;
+     } else {
+        return true;
+     }
+}
+
 // Function to display error modal from backend
 function displayErrorModal(errorMessage) {
     $(document).ready(function() {
         $('#error-after-submission').modal({
-            fadeDuration:200,
-            closeExisting:false
+            fadeDuration:200
         });
         $('#error-message').text(errorMessage);
     });

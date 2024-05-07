@@ -102,7 +102,7 @@
     //get the assignments of respective categories
     function getAssignment($assignmentCategoryId){
         $connection = connectDatabase();
-        $sql = "SELECT assignment_text,deadline,assignment_file FROM assignments where assignment_category_id='$assignmentCategoryId' ORDER BY deadline ASC;";
+        $sql = "SELECT assignment_id,assignment_text,deadline,assignment_file FROM assignments where assignment_category_id='$assignmentCategoryId' ORDER BY deadline ASC;";
         $result = mysqli_query($connection,$sql);
         if (checkResult($result,$connection) !== true){
             return false;

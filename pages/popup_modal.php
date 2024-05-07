@@ -5,7 +5,7 @@
     }
     include_once '../database/value_pull.php';
     include_once '../database/value_push.php';
-    
+
     //get the course code of whichever course is clicked
     if(isset($_GET['course_code'])) {
         $courseCode = $_GET['course_code'];
@@ -60,14 +60,20 @@
                 $result = createAssignment($category_id,$assignment_text,$assignment_deadline,$assignment_file);
             }
         }
-        if ($result == true){
-            // Redirect back to the same page to prevent form resubmission
-            header("Location: ".$_SERVER['PHP_SELF']."?course_code=".$courseCode);
-            exit();
-        } else {
-            $err['error-message'] = 'Error during assignment creation';
+        if (isset($result)){
+            if ($result == true){
+                // Redirect back to the same page to prevent form resubmission
+                header("Location: ".$_SERVER['PHP_SELF']."?course_code=".$courseCode);
+                exit();
+            } else {
+                $err['error-message'] = 'Error during assignment creation';
+            }
         }
     }
+    elseif (isset($_POST['submitFile'])){
+
+    }
+
 ?>
 
 <!-- this is for the popup modals of create category -->
@@ -88,7 +94,7 @@
 <div id="create-assignment" class="modal">
     <form action="" method="post" enctype="multipart/form-data" onsubmit="return validateCreateAssignmentForm()">
         <div class="input-control">
-            <input type="hidden" id="category-id" name="category_id" value="">
+            <input type="hidden" id="category-id" name="category_id" value=""> <!-- value here comes from loadQuestion() js -->
         </div>
         <div class="input-control">
             <label for="assignment-text">Enter assignment text:</label><br>
@@ -106,6 +112,25 @@
         </div>
         <div class="form-button">
             <input type="submit" value="Create" name="createAssignment">
+        </div>
+    </form>
+</div>
+
+<!-- this is the pop up modal to submit file by students -->
+<div id="submit-file" class="modal">
+    <form action="" method="post" enctype="multipart/form-data" onsubmit="return validateSubmitFileForm()">
+    <div class="input-control">
+        <input type="hidden" id="assignment-id" name="assignment_id" value="">
+        <input type="hidden" id="student-id" name="student_id" value="">
+        <input type="hidden" id="teacher-courses-id" name="teacher_courses_id" value="">
+    </div>
+        <div class="input-control">
+            <label for="submitted-file">Choose your file:</label>
+            <input type="file" id="submitted-file" name="submit_file">
+            <span class="error" id="submit-file-error"></span>
+        </div>
+        <div class="form-button">
+            <input type="submit" value="Submit" name="submitFile">
         </div>
     </form>
 </div>

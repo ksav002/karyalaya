@@ -73,7 +73,7 @@
                     }else {
                         foreach ($categoryNames as $name){
                 ?>
-                <div class="category-name" onclick="loadQuestion(<?php echo $name['assignment_category_id'];?>); keepSelected()">
+                <div class="category-name" onclick="loadQuestion(<?php echo $name['assignment_category_id'].','.$name['teacher_courses_id'];?>); keepSelected()">
                     <span><?php echo $name['category_name']; ?></span>
                 </div>
                 <?php

@@ -2,17 +2,19 @@
 
 error_reporting();
 include_once '../database/value_pull.php';
-
 // Check if the user is logged in
 if (!isset($_SESSION['username'])) {
     // Redirect the user to the login page if not logged in
     header("Location: login.php");
     exit(); // Stop executing the script
 }
-
-$assignmentId=105;
-$teacherCoursesId=1;
-
+if (isset($_POST['assignmentId']) && $_POST['teacherCoursesId']){
+    $assignmentId=$_POST['assignmentId'];
+    $teacherCoursesId=$_POST['teacherCoursesId'];
+} else {
+    echo "Either assignmentId or teacherCoursesId not provided";
+    exit();
+}
 $submissionResult = getSubmission($assignmentId,$teacherCoursesId);
 
 ?>
@@ -29,6 +31,11 @@ $submissionResult = getSubmission($assignmentId,$teacherCoursesId);
     <div class="heading">
         <h1><a href="dashboard.php">My Courses</a>><a href="javascript:history.back()">My Assignments</a>>View Submissions</h1>
     </div> 
+    <?php
+        if ($submissionResult == false){
+            echo "No submissions are provided for this question.";
+        } else {
+    ?>
     <table border="1">
         <tr>
             <th>S.N.</th>
@@ -47,3 +54,5 @@ $submissionResult = getSubmission($assignmentId,$teacherCoursesId);
     </table>
 </body>
 </html>
+
+<?php } ?>
