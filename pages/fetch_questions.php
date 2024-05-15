@@ -38,7 +38,8 @@ $title = $_SESSION['title'];
         $assignmentNumber = 1; //yo chai assignment number 1,2,3... garna lai //ahile chai initialize ani paxi chai increment
         foreach($questionDetails as $details){
     ?>
-    <div class="assignment-title" data-assignment-id="<?php echo $details['assignment_id']; ?>">
+    
+    <div class="assignment-title"  data-assignment-id="<?php echo $details['assignment_id']; ?>">
         <div class="title-name">
             <span>Assignment <?php echo $assignmentNumber++ ?> ▼ </span>
             <span><?php echo $details['deadline']; ?></span>
@@ -70,7 +71,7 @@ if ($title == 'teacher'){
 <div class="buttons">
     <div class="hidden-button">
     <form action="submission.php" method="post">
-            <input type="hidden" name="assignmentId" id="assignment-id" value=""> <!-- value in here comes from js -->
+            <input type="hidden" name="assignmentId" id="assignment-id" value=""> <!-- value in here comes from js loadAccordion() -->
             <input type="hidden" name="teacherCoursesId" id="teacher-courses-id" value="<?php if(isset($_POST['teacherCoursesId'])){ echo $_POST['teacherCoursesId'];} ?>">
             <button type="submit">View Submissions</button>
         </form>
@@ -93,3 +94,4 @@ if ($title == 'student'){
 
 <script type="text/javascript" src="../js/jquery.min.js"></script>
 <script type="text/javascript" src="../js/script.js"></script>   
+

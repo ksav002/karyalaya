@@ -51,5 +51,20 @@
             die('Database Error: '. $ex->getMessage());
         }
     }
+    //upload the files given by students
+    function createSubmission($assignment_id,$student_id,$teacher_courses_id,$submission_file){
+        echo "Assignment ID: " . $assignment_id . "<br>";
+    echo "Student ID: " . $student_id . "<br>";
+    echo "Teacher Courses ID: " . $teacher_courses_id . "<br>";
+    print_r($submission_file);
+        try{
+            $connection = connectDatabase();
+            $sql = "INSERT INTO submission (assignment_id,student_id,teacher_courses_id,submission_file) VALUES ('$assignment_id','$student_id','$teacher_courses_id','$submission_file')";
+            mysqli_query($connection,$sql);
+            return true;
+        } catch (Exception $ex){
+            die('Database Error: '. $ex->getMessage());
+        }
+    }
 
 ?>

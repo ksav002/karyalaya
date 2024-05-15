@@ -317,3 +317,10 @@ body{
     text-align: justify;
     column-gap: 10px;
 }
+
+/* submission page */
+
+.submission-table{
+    border-collapse: collapse;
+    margin: 10px 20px  ;
+}

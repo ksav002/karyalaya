@@ -36,19 +36,17 @@ $submissionResult = getSubmission($assignmentId,$teacherCoursesId);
             echo "No submissions are provided for this question.";
         } else {
     ?>
-    <table border="1">
+    <table class="submission-table">
         <tr>
             <th>S.N.</th>
             <th>Student's Name</th>
-            <th>Submitted File</th>
-            <th>Modify</th>
+            <th>Action</th>
         </tr>
         <?php foreach ($submissionResult as $key => $submissionResult){ ?>
             <tr>
                 <td><?php echo $key+1 ?></td>
                 <td><?php echo $submissionResult['fname']. ' ' .$submissionResult['lname'] ?></td>
-                <td><?php echo '<a href='.$submissionResult['submission_file'].'>Download</a>' ?></td>
-                <td><button>Delete</button></td>
+                <td><button onclick="previewFile('<?php echo $submissionResult['submission_file']; ?>')">Preview</button><button>Delete</button></td>
             </tr>
         <?php } ?>
     </table>
@@ -56,3 +54,5 @@ $submissionResult = getSubmission($assignmentId,$teacherCoursesId);
 </html>
 
 <?php } ?>
+
+<script type="text/javascript" src="../js/script.js"></script>   

@@ -11,6 +11,15 @@
         $courseCode = $_GET['course_code'];
     }
 
+    //since student-id is needed if a student submits a file/answer
+    $loggedInUsername = $_SESSION['username'];
+    if($_SESSION['title'] == 'student') {
+        $userDetails = getDetails($loggedInUsername);
+        foreach($userDetails as $detail){
+            $student_id = $detail['student_id'];
+        }
+    }
+
     //get the data that is inserted in the popup modal form create category so that it can be passed to insert in db
     if (isset($_POST['createCategory'])){
         $category_name = $_POST['category_name'];
@@ -40,7 +49,7 @@
                     if ($assignment_file['size'] <= 15728640){
                         //creates a unique name so that new file doesn't overwrite old one with same name
                         $file_extension = pathinfo($assignment_file['name'], PATHINFO_EXTENSION);
-                        $file_new_name = uniqid('question_', true) . '.' . $file_extension;
+                        $file_new_name = uniqid('answer_', true) . '.' . $file_extension;
                         //provides file path to put the file in
                         $file_destination = '../user uploads/' . $file_new_name;
                         if (move_uploaded_file($assignment_file['tmp_name'],$file_destination)){
@@ -70,10 +79,56 @@
             }
         }
     }
+    //get data and pass from submit assignment by students
     elseif (isset($_POST['submitFile'])){
+        $assignment_id = $_POST['assignment_id'];
+        $student_id = $_POST['student_id'];
+        $teacher_courses_id = $_POST['teacher_courses_id'];
 
+        // Check if file is uploaded
+        if(isset($_FILES['submission_file'])) {
+            //store it in a array for easier access
+            $submission_file = $_FILES['submission_file'];
+            if ($submission_file['error'] == 0){   //error 0 means file uploaded successfully
+                //allowed file types
+                $allowed_file_type = ['application/pdf'];
+                if(in_array($submission_file['type'],$allowed_file_type)){
+                    if ($submission_file['size'] <= 15728640){
+                        //creates a unique name so that new file doesn't overwrite old one with same name
+                        $file_extension = pathinfo($submission_file['name'], PATHINFO_EXTENSION);
+                        $file_new_name = uniqid('answer_', true) . '.' . $file_extension;
+                        //provides file path to put the file in
+                        $file_destination = '../user uploads/' . $file_new_name;
+                        if (move_uploaded_file($submission_file['tmp_name'],$file_destination)){
+                            $result = createSubmission($assignment_id,$student_id,$teacher_courses_id,$file_new_name);
+                        } else {
+                            $err['error-message'] = 'File could not be uploaded to the specified path';
+                        }    
+                    } else {
+                        $err['error-message'] = 'File size must be less than 15 MB';
+                    }
+                } else {
+                    $err['error-message'] = 'Only pdf is allowed';
+                }
+            } else {
+                $err['error-message'] = 'Server Upload error';
+            }
+            if (isset($result)){
+                if ($result == true){
+                    // Redirect back to the same page to prevent form resubmission
+                    header("Location: ".$_SERVER['PHP_SELF']."?course_code=".$courseCode);
+                    exit();
+                } else {
+                    $err['error-message'] = 'Database Upload Error';
+                }
+            }
+        }
     }
 
+
+
+
+    if ($_SESSION['title'] == 'teacher'){
 ?>
 
 <!-- this is for the popup modals of create category -->
@@ -115,18 +170,21 @@
         </div>
     </form>
 </div>
-
+<?php
+    }
+    if ($_SESSION['title'] == 'student'){
+?>
 <!-- this is the pop up modal to submit file by students -->
 <div id="submit-file" class="modal">
     <form action="" method="post" enctype="multipart/form-data" onsubmit="return validateSubmitFileForm()">
     <div class="input-control">
-        <input type="hidden" id="assignment-id" name="assignment_id" value="">
-        <input type="hidden" id="student-id" name="student_id" value="">
-        <input type="hidden" id="teacher-courses-id" name="teacher_courses_id" value="">
+        <input type="hidden" id="assignment-id" name="assignment_id" value=""> <!-- value comes from loadQuestion() js -->
+        <input type="hidden" id="student-id" name="student_id" value="<?php echo $student_id; ?>"> 
+        <input type="hidden" id="teacher-courses-id" name="teacher_courses_id" value=""> <!-- value comes from loadQuestion() js -->
     </div>
         <div class="input-control">
-            <label for="submitted-file">Choose your file:</label>
-            <input type="file" id="submitted-file" name="submit_file">
+            <label for="submission-file">Choose your file:</label>
+            <input type="file" id="submission-file" name="submission_file">
             <span class="error" id="submit-file-error"></span>
         </div>
         <div class="form-button">
@@ -134,7 +192,9 @@
         </div>
     </form>
 </div>
-
+<?php
+    }
+?>
 <!-- after submission error modal -->
 <div id="error-after-submission" class="modal">
     <span id="error-message"></span>

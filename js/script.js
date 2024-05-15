@@ -10,6 +10,7 @@ function loadQuestion(assignmentCategoryId,teacherCoursesId){
             // On success, update the .right element's HTML with the response
             $(".right").html(response);
             loadAccordion(); // Call loadAccordion here
+            
         },
         error: function(xhr, status, error) {
             // Optionally handle errors
@@ -49,9 +50,7 @@ function loadAccordion() {
                 $('.buttons .hidden-button').toggle(isVisible);
 
                 // If the question is visible, set the assignment ID in the form hidden field for viewing submissions and submitting file
-                if (isVisible) {
-                    $('#assignment-id').val(assignmentId);
-                }
+                $('#assignment-id').val(assignmentId); //not working
             });
 
             // Hide the other panels
