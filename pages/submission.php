@@ -3,7 +3,7 @@
 error_reporting();
 include_once '../database/value_pull.php';
 // Check if the user is logged in
-if (!isset($_SESSION['username'])) {
+if (!isset($_SESSION['username']) || $_SESSION['title'] == 'student') {
     // Redirect the user to the login page if not logged in
     header("Location: login.php");
     exit(); // Stop executing the script
@@ -25,6 +25,7 @@ $submissionResult = getSubmission($assignmentId,$teacherCoursesId);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>View Submissions</title>
     <link rel="stylesheet" href="../css/style.css">
+
 </head>
 <body>
     <?php include_once 'login_navbar.php'; ?>
@@ -46,7 +47,10 @@ $submissionResult = getSubmission($assignmentId,$teacherCoursesId);
             <tr>
                 <td><?php echo $key+1 ?></td>
                 <td><?php echo $submissionResult['fname']. ' ' .$submissionResult['lname'] ?></td>
-                <td><button onclick="previewFile('<?php echo $submissionResult['submission_file']; ?>')">Preview</button><button>Delete</button></td>
+                <td>
+                    <button type="button" onclick="previewFile('<?php echo $submissionResult['submission_file']; ?>')">Preview</button>
+                    <button type="button" class="delete-button">Delete</i></button>
+                </td>            
             </tr>
         <?php } ?>
     </table>

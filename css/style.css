@@ -6,8 +6,30 @@ body{
     font-family: 'Montserrat', sans-serif;
 }
 
-.logo{
-    margin-top: 2%;
+.background-color{
+    background-color: #047a9c;
+    min-height: 100vh;
+}
+.login-wrapper{
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.login-logo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    flex: 1;
+}
+
+.login-logo img{
+    padding-top: 2%;
+    margin-bottom: 40%;
+    height: 78.6px;
+    width: 234.8px;
 }
 
 .logo img{
@@ -17,15 +39,15 @@ body{
 }
 
 .container{
-    box-shadow: 0 0 20px 0 rgb(0, 0, 0, 0.5);
+    flex: 1;
+    max-width: 500px;
+    margin: 0 10%;
+    box-shadow: 0 0 20px 0 #00000080;
     width: 35%;
     padding: 30px;
     display: flex;
     flex-direction: column;
-    margin-top: auto;
-    margin-bottom: auto;
-    margin-left: auto;
-    margin-right: 5%;
+    background-color: #efefef;
 }
 
 .container .heading{
@@ -56,17 +78,17 @@ body{
     position: relative;
     cursor: pointer;
 }
-  
+
 .slider {
-    height: 55px;
-    width: calc(50% - 2px);
-    background: aquamarine;
+    height: 100%;
+    width: 50%;
+    background: #ffb81c;
     border-radius: 30px;
     position: absolute;
     top: 0;
     left: 0;
     z-index: 1;
-    transition: left 0.25s ease-in-out;
+    transition: left 0.1s ease-in-out;
     display: inline-block;
 }
 
@@ -86,8 +108,17 @@ body{
     width: calc(100% - 40px);
     max-width: 100%;
     border-radius: 4px;
-    margin-top: 5px;
     padding: 16px 20px;
+    border-width: 0 0 2px 0;
+    transition: 0.25s ease;
+    background-color: #efefef;
+    font-size: 16px;
+}
+
+.input-control input:focus{
+    border-width: 0 0 4px 0;
+    border-color: #047a9c;
+    outline: 0px;
 }
 
 .form-button{
@@ -98,10 +129,21 @@ body{
 }
 
 .form-button input{
-    padding: 10px 50px;
+    padding: 10px 30%;
     max-width: 100%;
     font-size:medium;
     border-radius: 4px;
+    border: none;
+}
+
+.form-button input[type="submit"]{
+    background: #ffb81c ;
+}
+
+
+.form-button input[type="submit"]:hover{
+    background: rgb(255,154,25) ;
+    cursor: pointer;
 }
 
 .forgot-password{
@@ -116,9 +158,11 @@ body{
     color: red;
 }
 
+
 /* nav-bar ko code yeta bata */
 .nav-header{
     display: flex;
+    background-color: #047a9c;
 }
 
 .nav-welcome{
@@ -324,3 +368,26 @@ body{
     border-collapse: collapse;
     margin: 10px 20px  ;
 }
+
+/* Common styling for the delete button */
+.delete-button {
+    background-color: #ff4c4c; /* Red background color */
+    color: white; /* White text color */
+    border: none; /* Remove border */
+    border-radius: 5px; /* Rounded corners */
+    padding: 10px 15px; /* Padding for size */
+    font-size: 16px; /* Font size */
+    cursor: pointer; /* Pointer cursor on hover */
+    transition: background-color 0.3s ease; /* Smooth transition for background color */
+  }
+  
+  /* Change background color on hover */
+  .delete-button:hover {
+    background-color: #e43a40; /* A bit darker red on hover */
+  }
+  
+  /* Change background color on active (click) */
+  .delete-button:active {
+    background-color: #cc3238; /* Even darker red on click */
+  }
+  

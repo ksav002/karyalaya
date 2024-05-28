@@ -46,56 +46,60 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
     <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
 <body>
-    <div class="header">
-        <div class="logo">
-            <img src="../images/logo.svg" alt="Assignment Digitalization">
+    <div class="background-color">
+        <div class="login-wrapper">
+            <div class="login-logo">
+                <img src="../images/logo.svg" alt="Assignment Digitalization">
+            </div>
+
+            <div class="container">
+                <h2 class="heading">
+                    LOGIN
+                </h2>
+                <form action="" method="post">
+                    <div class="toggle">
+                        <input type="radio" value="teacher" name="title" class="teacher" id="teacher" checked>
+                        <label for="teacher">Teacher</label>
+
+                        <input type="radio" value="student" name="title" class="student" id="student">
+                        <label for="student">Student</label>
+
+                        <div class="slider">
+                            &nbsp;
+                        </div>
+                    </div>
+                    <div class="form-box">
+                        <div class="input-control">
+                            <label for="username">Username</label>
+                            <input type="text" name="username"/>
+                            <span class="error"><?php if (isset($err['username'])){echo $err['username'];} ?></span>
+                        </div>
+                        <div class="input-control">
+                            <label for="password">Password</label>
+                            <input type="password" name="password"/>
+                            <span class="error"><?php if (isset($err['password'])){echo $err['password'];} ?></span>
+                        </div>
+                        <div>
+                            <input type="checkbox" checked="checked" name="remember"/>
+                            <label for="remember">Stay logged in</label>
+                        </div>
+                        <span class="error"><?php if (isset($err['login'])) {echo $err['login'];} ?></span>
+                        <div class="form-button">
+                            <input type="submit" value="Login" name="btnLogin">
+                        </div>
+                    </div>
+                </form>
+                <!-- <div class="forgot-password">
+                    <a href="#">Forgot Password?</a>
+                </div> -->
+                <p class="terms">
+                    By signing in, you agree to our <a href="#">terms and conditions.</a>
+                </p>
+            </div>
         </div>
-    </div>
-    <div class="container">
-        <h2 class="heading">
-            LOGIN
-        </h2>
-        <form action="" method="post">
-            <div class="toggle">
-                <input type="radio" value="teacher" name="title" class="teacher" id="teacher" checked>
-                <label for="teacher">Teacher</label>
-
-                <input type="radio" value="student" name="title" class="student" id="student">
-                <label for="student">Student</label>
-
-                <div class="slider">
-                    &nbsp;
-                </div>
-            </div>
-            <div class="form-box">
-                <div class="input-control">
-                    <label for="username">Username</label>
-                    <input type="text" name="username"/>
-                    <span class="error"><?php if (isset($err['username'])){echo $err['username'];} ?></span>
-                </div>
-                <div class="input-control">
-                    <label for="password">Password</label>
-                    <input type="password" name="password"/>
-                    <span class="error"><?php if (isset($err['password'])){echo $err['password'];} ?></span>
-                </div>
-                <div>
-                    <input type="checkbox" checked="checked" name="remember"/>
-                    <label for="remember">Remember me</label>
-                </div>
-                <span class="error"><?php if (isset($err['login'])) {echo $err['login'];} ?></span>
-                <div class="form-button">
-                    <input type="submit" value="Login" name="btnLogin">
-                </div>
-            </div>
-        </form>
-        <!-- <div class="forgot-password">
-            <a href="#">Forgot Password?</a>
-        </div> -->
-        <p class="terms">
-            By signing in, you agree to our <a href="#">terms and conditions.</a>
-        </p>
     </div>
 </body>
 </html>
