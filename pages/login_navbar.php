@@ -13,7 +13,7 @@
 
 <div class="nav-header">
     <div class="logo">
-        <img src="../images/logo.svg" alt="Assignment Digitalization">
+        <img src="../images/logo-without-name.svg" alt="Assignment Digitalization">
     </div>
     <div class="nav-welcome">
         <p>

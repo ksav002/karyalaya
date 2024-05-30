@@ -45,14 +45,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
-    <link rel="stylesheet" href="../css/style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="../css/style.css">  
 </head>
 <body>
     <div class="background-color">
         <div class="login-wrapper">
             <div class="login-logo">
-                <img src="../images/logo.svg" alt="Assignment Digitalization">
+                <img src="../images/logo-with-name.svg" alt="Assignment Digitalization">
             </div>
 
             <div class="container">
