@@ -31,12 +31,14 @@ body{
     height: 200px;
     width: 200px;
     cursor: pointer;
+    filter: drop-shadow(0 0 20px #00000080);
 }
 
 .logo img{
     margin-left: 3%;
     height: 78.6px;
     width: 234.8px;
+    filter: drop-shadow(0 0 20px #00000080);
 }
 
 .container{
