@@ -22,9 +22,6 @@
             while ($row = mysqli_fetch_assoc($result)) {
                 array_push($details, $row);
             }
-
-
-
             return true;
         } else {
             return false;

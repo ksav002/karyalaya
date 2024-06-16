@@ -18,7 +18,6 @@
         } else {
             $err['password'] = 'Please enter password';
         }
-
         if($title == 'teacher'){
             $tableName = 'teachers';
         }
@@ -78,7 +77,7 @@
                 </h2>
                 <form action="" method="post">
                     <div class="toggle">
-                        <input type="radio" value="teacher" name="title" class="teacher" id="teacher" <?php if (isset($title_cookie)){echo ($title_cookie == 'teacher') ? 'checked' : '';} ?>>
+                        <input type="radio" value="teacher" name="title" class="teacher" id="teacher" <?php if (isset($title_cookie)){echo ($title_cookie == 'teacher') ? 'checked' : '';} ?> checked>
                         <label for="teacher">Teacher</label>
 
                         <input type="radio" value="student" name="title" class="student" id="student" <?php if (isset($title_cookie)){echo ($title_cookie == 'student') ? 'checked' : '';} ?>>
@@ -101,7 +100,7 @@
                         </div>
                         <div>
                             <input type="checkbox" checked="checked" name="remember"/>
-                            <label for="remember">Stay logged in</label>
+                            <label for="remember">Remember me</label>
                         </div>
                         <span class="error"><?php if (isset($err['login'])) {echo $err['login'];} ?></span>
                         <div class="form-button">
@@ -109,9 +108,6 @@
                         </div>
                     </div>
                 </form>
-                <!-- <div class="forgot-password">
-                    <a href="#">Forgot Password?</a>
-                </div> -->
                 <p class="terms">
                     By signing in, you agree to our <a href="#">terms and conditions.</a>
                 </p>

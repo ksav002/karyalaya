@@ -19,6 +19,27 @@ function loadQuestion(assignmentCategoryId,teacherCoursesId){
     });
 }
 
+//nav bar ma time dekhauna lai
+function updateTime() {
+    const now = new Date();
+    const hours = now.getHours();
+    const minutes = now.getMinutes();
+    const ampm = hours >= 12 ? 'PM' : 'AM';
+    const formattedHours = hours % 12 || 12;
+    const formattedMinutes = minutes < 10 ? '0' + minutes : minutes;
+    const timeString = formattedHours + ':' + formattedMinutes + ' ' + ampm;
+
+    const day = now.getDate();
+    const month = now.getMonth() + 1; // Months start from zero so add 1
+    const year = now.getFullYear();
+    const formattedDay = day < 10 ? '0' + day : day;
+    const formattedMonth = month < 10 ? '0' + month : month;
+    const dateString = formattedMonth + '/' + formattedDay + '/' + year;
+
+    document.getElementById('nav-clock').textContent = timeString;
+    document.getElementById('nav-date').textContent = dateString;
+}
+
 //kun category select vairako xa tyo tha pauna lai
 function keepSelected(){
     $(document).ready(function(){

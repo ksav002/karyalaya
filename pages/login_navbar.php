@@ -15,6 +15,12 @@
     <div class="logo">
         <img src="../images/logo-without-name.svg" alt="Assignment Digitalization">
     </div>
+    <div class="nav-time" id="nav-time">
+        <!-- here comes the date -->
+        <div class="date" id="nav-date"></div>
+        <!-- here comes the time -->
+        <div class="clock" id="nav-clock"></div>
+    </div>
     <div class="nav-welcome">
         <p>
             <?php echo $name; ?>
@@ -27,3 +33,8 @@
     </div>
 </div>
 
+<script type="text/javascript" src="../js/script.js"></script> 
+<script>
+    setInterval(updateTime, 1000);
+    updateTime();
+</script>
