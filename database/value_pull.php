@@ -136,9 +136,13 @@
         $sql = "SELECT * FROM submission WHERE assignment_id='$assignmentId' AND student_id='$studentId';";
         $result = mysqli_query($connection,$sql);
         if (checkResult($result,$connection) == true){
-            return false;
+            $submissionResult = [];
+        while ($row = mysqli_fetch_assoc($result)) {
+            array_push($submissionResult, $row);
+        }
+        return $submissionResult;
         } else {
-            return true;
+            return false;
         }
     }
 ?>

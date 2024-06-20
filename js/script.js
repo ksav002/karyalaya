@@ -116,7 +116,7 @@ function validateCreateAssignmentForm(){
 }
 
 function validateSubmitFileForm(){
-    var submittedFile = document.getElementById('submitted-file');
+    var submittedFile = document.getElementById('submission-file');
     var fileError = document.getElementById('submit-file-error');
 
     fileError.textContent = '';
@@ -196,6 +196,7 @@ function confirmAssignmentDelete(data) { //deletes whatever data is passed throu
     }
 }
 
+//delete student's submission by teachers
 function deleteSubmission(submissionid){
     $.ajax({
         type: "POST",
@@ -213,6 +214,8 @@ function deleteSubmission(submissionid){
 function validateEditFileForm(){
     var submittedFile = document.getElementById('edit-submission-file');
     var fileError = document.getElementById('edit-file-error');
+    let submissionId = document.querySelector('a[href="#edit-file"]').getAttribute('data-submission-id');
+    document.getElementById('edit-submission-id').value = submissionId;
 
     fileError.textContent = '';
      if (submittedFile.files.length === 0){

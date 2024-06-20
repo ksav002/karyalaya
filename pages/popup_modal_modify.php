@@ -57,7 +57,7 @@
     }
 
     if (isset($_POST['editFile'])){
-        $assignment_id = $_POST['edit_submission_id'];
+        $submission_id = $_POST['edit_submission_id'];
 
         // Check if file is uploaded
         if(isset($_FILES['edit_submission_file'])) {
@@ -74,7 +74,7 @@
                         //provides file path to put the file in
                         $file_destination = '../user uploads/' . $file_new_name;
                         if (move_uploaded_file($submission_file['tmp_name'],$file_destination)){
-                            $result = updateSubmission($assignment_id,$file_new_name);
+                            $result = updateSubmission($submission_id,$file_new_name);
                         } else {
                             $err['error-message'] = 'File could not be uploaded to the specified path';
                         }    
@@ -85,7 +85,7 @@
                     $err['error-message'] = 'Only pdf is allowed';
                 }
             } else {
-                $err['error-message'] = 'Upload a file';
+                $err['error-message'] = 'Server Upload error';
             }
             if (isset($result)){
                 if ($result == true){

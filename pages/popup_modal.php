@@ -116,7 +116,7 @@
                     $err['error-message'] = 'Only pdf is allowed';
                 }
             } else {
-                $err['error-message'] = 'Upload a file';
+                $err['error-message'] = 'Server Upload error';
             }
             if (isset($result)){
                 if ($result == true){

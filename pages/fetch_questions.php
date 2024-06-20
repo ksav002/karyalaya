@@ -107,18 +107,21 @@ if ($title == 'student'){
         foreach($userDetails as $detail){
             $studentId = $detail['student_id'];
         }
-        $check = checkSubmission($assignmentId,$studentId);
-            // Check if the student has submitted the assignment
-            if ($check == false) { // if file is submitted previously
-        ?>
-        <a href="#edit-file" data-modal="#edit-file" rel="modal:open"><button>Edit File</button></a>
-        <?php
-            } else {
+        $submissionId = checkSubmission($assignmentId,$studentId);
+
+        if ($submissionId == false){ //if there is no data of the given details i.e., the submission id is null and it returns false show submit file
         ?>
         <a href="#submit-file" data-modal="#submit-file" rel="modal:open"><button>Submit File</button></a>
         <?php
-            }
+        } else { //if the data exists then edit the data
+            foreach ($submissionId as $submissionId){
         ?>
+        <a href="#edit-file" data-modal="#edit-file" rel="modal:open" data-submission-id="<?php echo $submissionId['submission_id']; ?>"><button>Edit File</button></a>
+        <?php
+            }
+        }  
+        ?>
+        
     </div>
 </div>
 <?php
