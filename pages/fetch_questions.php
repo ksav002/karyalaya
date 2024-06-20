@@ -18,13 +18,14 @@ if(isset($_POST['categoryId'])) {
         $questionDetails =  $assignmentQuestions;
     } else {
         // If no assignment questions were found for the provided category ID
-        $noAssignmentError = "No assignment questions found for this category.";
+        $noAssignmentError = "No assignment questions found.";
     }
 } else {
     // If category ID is not set in the POST request
     echo "Category ID not provided.";
     exit();
 }
+
 $title = $_SESSION['title'];
 ?>
 
@@ -36,7 +37,10 @@ $title = $_SESSION['title'];
 <div class="right-titles">
     <?php
         $assignmentNumber = 1; //yo chai assignment number 1,2,3... garna lai //ahile chai initialize ani paxi chai increment
+        $currentDate = date('Y-m-d'); // Get the current date
         foreach($questionDetails as $details){
+            // Check if the user is a teacher or if the deadline is in the future for students
+            if ($title == 'teacher' || ($title != 'teacher' && $details['deadline'] >= $currentDate)) {
     ?>
     
     <div class="assignment-title"  data-assignment-id="<?php echo $details['assignment_id']; ?>">
@@ -46,19 +50,31 @@ $title = $_SESSION['title'];
         </div>
         <div class="question">
             <span><?php echo $details['assignment_text']; ?></span>
-            <!-- for preview -->
-            <?php
-                if ($details['assignment_file'] !== ''){
-                    $file_name = $details['assignment_file'];
-            ?> 
-                <button onclick="previewFile('<?php echo $file_name; ?>')">Preview</button>
+            <div class="assignment-buttons">
+                <?php
+                    if ($details['assignment_file'] !== ''){
+                        $file_name = $details['assignment_file'];
+                ?> 
+                    <button onclick="previewFile('<?php echo $file_name; ?>')">Preview</button>
+                <?php
+                    }
+                    if ($title == 'teacher'){
+                ?>
+                <a href="#update-assignment" data-modal="#update-assignment" rel="modal:open"><button onclick="passAssignmentIdForUpdate(<?php echo $details['assignment_id'] ?>)">Edit</button></a>
 
-            <?php
-                }
-            ?>
+                <form action="" method="post" id="deleteAssignment" onsubmit="return confirmAssignmentDelete('deleteAssignment')">
+                    <input type="hidden" name="assignmentId" id="delete-assignment-id" value="<?php echo $details['assignment_id'];?>">
+                    <input type="submit" value="Delete" name="deleteAssignmentId">
+                </form>
+                <?php
+                    }
+                ?>
+            </div>
         </div>
     </div>
     <?php
+            }
+            $assignmentId = $details['assignment_id'];
         }
     }
     ?>
@@ -85,12 +101,30 @@ if ($title == 'student'){
 ?>
 <div class="buttons">
     <div class="hidden-button">
+    <?php
+        $loggedInUsername = $_SESSION['username'];
+        $userDetails = getDetails($loggedInUsername);
+        foreach($userDetails as $detail){
+            $studentId = $detail['student_id'];
+        }
+        $check = checkSubmission($assignmentId,$studentId);
+            // Check if the student has submitted the assignment
+            if ($check == false) { // if file is submitted previously
+        ?>
+        <a href="#edit-file" data-modal="#edit-file" rel="modal:open"><button>Edit File</button></a>
+        <?php
+            } else {
+        ?>
         <a href="#submit-file" data-modal="#submit-file" rel="modal:open"><button>Submit File</button></a>
+        <?php
+            }
+        ?>
     </div>
 </div>
 <?php
 }
 ?>
+
 
 <script type="text/javascript" src="../js/jquery.min.js"></script>
 <script type="text/javascript" src="../js/script.js"></script>   

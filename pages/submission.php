@@ -2,6 +2,7 @@
 
 error_reporting();
 include_once '../database/value_pull.php';
+include_once '../database/value_modify.php';
 // Check if the user is logged in
 if (!isset($_SESSION['username']) || $_SESSION['title'] == 'student') {
     // Redirect the user to the login page if not logged in
@@ -16,7 +17,6 @@ if (isset($_POST['assignmentId']) && $_POST['teacherCoursesId']){
     exit();
 }
 $submissionResult = getSubmission($assignmentId,$teacherCoursesId);
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -49,7 +49,7 @@ $submissionResult = getSubmission($assignmentId,$teacherCoursesId);
                 <td><?php echo $submissionResult['fname']. ' ' .$submissionResult['lname'] ?></td>
                 <td>
                     <button type="button" onclick="previewFile('<?php echo $submissionResult['submission_file']; ?>')">Preview</button>
-                    <button type="button" class="delete-button">Delete</i></button>
+                    <button type="button"onclick="deleteSubmission('<?php echo $submissionResult['submission_id']; ?>')" >Delete</button>
                 </td>            
             </tr>
         <?php } ?>
@@ -59,4 +59,5 @@ $submissionResult = getSubmission($assignmentId,$teacherCoursesId);
 
 <?php } ?>
 
-<script type="text/javascript" src="../js/script.js"></script>   
+<script type="text/javascript" src="../js/script.js"></script>
+<script type="text/javascript" src="../js/jquery.min.js"></script>

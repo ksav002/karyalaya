@@ -34,7 +34,7 @@ function updateTime() {
     const year = now.getFullYear();
     const formattedDay = day < 10 ? '0' + day : day;
     const formattedMonth = month < 10 ? '0' + month : month;
-    const dateString = formattedMonth + '/' + formattedDay + '/' + year;
+    const dateString = year + '-' + formattedMonth  + '-' + formattedDay;
 
     document.getElementById('nav-clock').textContent = timeString;
     document.getElementById('nav-date').textContent = dateString;
@@ -62,7 +62,7 @@ function loadAccordion() {
         $('.assignment-title .title-name').click(function() {
             var $assignmentTitle = $(this).closest('.assignment-title'); // selects the closest ancestor
             var $question = $assignmentTitle.find('.question'); // selects the question related to that title
-            var assignmentId = $assignmentTitle.data('assignment-id'); // Retrieve assignment id which is set in data-assignment-id 
+            var assignmentId = $assignmentTitle.data('assignment-id'); // Retrieve assignment id which is set in data-assignment-id
 
             // Expand or collapse this (selected) panel
             $question.slideToggle('slow', function() {
@@ -71,7 +71,7 @@ function loadAccordion() {
                 $('.buttons .hidden-button').toggle(isVisible);
 
                 // If the question is visible, set the assignment ID in the form hidden field for viewing submissions and submitting file
-                $('#assignment-id').val(assignmentId); //not working
+                $('#assignment-id').val(assignmentId); 
             });
 
             // Hide the other panels
@@ -101,7 +101,7 @@ function validateCreateAssignmentForm(){
     var assignmentDeadline = document.getElementById('assignment-deadline').value;
     var textError = document.getElementById('assignment-text-error');
     var deadlineError = document.getElementById('assignment-deadline-error');
-
+    
     textError.textContent = deadlineError.textContent = '';
 
     if (assignmentText === '') {
@@ -144,4 +144,81 @@ function previewFile(fileName){
         var filePath = "../user uploads/" + fileName;
         window.open (filePath,'_blank');
     }
+}
+
+function validateUpdateAssignmentForm(){
+    //for validation of assignment question
+    var assignmentText = document.getElementById('update-assignment-text').value.trim();
+    var assignmentDeadline = document.getElementById('update-assignment-deadline').value;
+    var textError = document.getElementById('update-assignment-text-error');
+    var deadlineError = document.getElementById('update-assignment-deadline-error');
+    
+    textError.textContent = deadlineError.textContent = '';
+
+    if (assignmentText === '') {
+        textError.textContent = 'Please enter some assignment text';
+        return false;
+    } else if (assignmentDeadline === ''){
+        deadlineError.textContent = 'Please give a deadline for the assignment';
+        return false;
+    } else {
+        return true;
+    }
+}
+
+function passAssignmentIdForUpdate(assignmentId){
+    document.getElementById('update-assignment-id').value = assignmentId;
+}
+
+//make user comfirm to delete the required data
+function confirmAssignmentDelete(data) { //deletes whatever data is passed through here usually function name is passed for easy understanding
+    const returnValue = confirm("Are you sure you want to delete this?");
+    var assignmentId = document.getElementById('delete-assignment-id').value;
+    event.preventDefault();
+    if (returnValue == true){
+        $.ajax({
+            type: "POST",
+            url: "../database/value_modify.php",
+            data: { functionName : data , someId : assignmentId}, 
+            success: function(response) {
+                if (response == 1){
+                    alert("Data deleted successfully.Reload to view change:");
+                    // $('#success-message').text("Successfully Deleted.Reload to see changes");
+                    // $('#success-after-submission').show();
+                }
+            },
+            error: function(xhr, status, error) {
+                console.error(xhr.responseText); // Handle any errors
+            }
+        });
+    } else {
+        return false;
+    }
+}
+
+function deleteSubmission(submissionid){
+    $.ajax({
+        type: "POST",
+        url: "../database/value_modify.php",
+        data: { submissionid: submissionid },
+        success: function(response) {
+            alert("Data deleted successfully.Reload to view change: " + response);
+        },
+        error: function(xhr) {
+            alert("Error: " + xhr.responseText);
+        }
+    });
+}
+
+function validateEditFileForm(){
+    var submittedFile = document.getElementById('edit-submission-file');
+    var fileError = document.getElementById('edit-file-error');
+
+    fileError.textContent = '';
+     if (submittedFile.files.length === 0){
+        fileError.textContent = 'Please select a file to upload';
+        return false;
+     } else {
+        return true;
+     }
 }

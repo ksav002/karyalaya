@@ -4,6 +4,7 @@
     include_once '../database/value_pull.php';
     include_once '../database/value_push.php';
     include_once 'popup_modal.php';
+    include_once 'popup_modal_modify.php';
     // Check if the user is logged in
     if (!isset($_SESSION['username'])) {
         // Redirect the user to the login page if not logged in
@@ -96,7 +97,11 @@
         </div>
     </div>
 
-    <script type="text/javascript" src="../js/script.js"></script>   
+    <script type="text/javascript" src="../js/script.js"></script>
+<script type="text/javascript" src="../js/jquery.min.js"></script>
+<!-- jQuery Modal -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.2/jquery.modal.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.2/jquery.modal.min.css" />
 
 </body>
 </html>

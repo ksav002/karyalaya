@@ -114,9 +114,10 @@
         return $assignmentQuestion;
     }
 
+    //to display submission for teacher
     function getSubmission($assignmentId,$teacherCoursesId){
         $connection = connectDatabase();
-        $sql = "SELECT fname,lname,submission_file FROM submission INNER JOIN students USING (student_id) where assignment_id='$assignmentId' AND teacher_courses_id='$teacherCoursesId';";
+        $sql = "SELECT submission_id,fname,lname,submission_file FROM submission INNER JOIN students USING (student_id) where assignment_id='$assignmentId' AND teacher_courses_id='$teacherCoursesId';";
 
         $result = mysqli_query($connection,$sql);
         if (checkResult($result,$connection) !== true){
@@ -127,5 +128,17 @@
             array_push($submissionResult, $row);
         }
         return $submissionResult;
+    }
+
+    //to check if a student has submitted or not so that multiple submission can't be done by 1 student
+    function checkSubmission($assignmentId,$studentId){
+        $connection = connectDatabase();
+        $sql = "SELECT * FROM submission WHERE assignment_id='$assignmentId' AND student_id='$studentId';";
+        $result = mysqli_query($connection,$sql);
+        if (checkResult($result,$connection) == true){
+            return false;
+        } else {
+            return true;
+        }
     }
 ?>

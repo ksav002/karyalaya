@@ -26,8 +26,10 @@
         $result = createCategory($_SESSION['teacher_id'],$_GET['course_code'],$category_name);
         if ($result == true){
             // Redirect back to the same page to prevent form resubmission
-            header("Location: ".$_SERVER['PHP_SELF']."?course_code=".$courseCode);
-            exit();
+            echo '<script>
+                        alert("Category created successfully.");
+                        window.location.href = "'.$_SERVER['PHP_SELF'].'?course_code='.$courseCode.'";
+                    </script>';
         } else {
             $err['error-message'] = 'Category already exists';
         }
@@ -72,7 +74,10 @@
         if (isset($result)){
             if ($result == true){
                 // Redirect back to the same page to prevent form resubmission
-                header("Location: ".$_SERVER['PHP_SELF']."?course_code=".$courseCode);
+                echo '<script>
+                        alert("Assignment created successfully.");
+                        window.location.href = "'.$_SERVER['PHP_SELF'].'?course_code='.$courseCode.'";
+                    </script>';
                 exit();
             } else {
                 $err['error-message'] = 'Error during assignment creation';
@@ -111,12 +116,15 @@
                     $err['error-message'] = 'Only pdf is allowed';
                 }
             } else {
-                $err['error-message'] = 'Server Upload error';
+                $err['error-message'] = 'Upload a file';
             }
             if (isset($result)){
                 if ($result == true){
                     // Redirect back to the same page to prevent form resubmission
-                    header("Location: ".$_SERVER['PHP_SELF']."?course_code=".$courseCode);
+                    echo '<script>
+                        alert("Assignment uploaded successfully.");
+                        window.location.href = "'.$_SERVER['PHP_SELF'].'?course_code='.$courseCode.'";
+                    </script>';
                     exit();
                 } else {
                     $err['error-message'] = 'Database Upload Error';
@@ -200,11 +208,14 @@
     <span id="error-message"></span>
 </div>
 
+<!-- after anything success modal -->
+<div id="success-after-submission" class="modal">
+    <span id="success-message"></span>
+</div>
+
 <script type="text/javascript" src="../js/script.js"></script>
 <script type="text/javascript" src="../js/jquery.min.js"></script>
-<!-- jQuery Modal -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.2/jquery.modal.min.js"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.2/jquery.modal.min.css" />
+
 
 <!-- displays error message if there is error returning from the backend -->
 <?php if (isset($err['error-message'])){ ?>

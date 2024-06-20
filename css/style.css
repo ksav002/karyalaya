@@ -389,26 +389,4 @@ body{
     border-collapse: collapse;
     margin: 10px 20px  ;
 }
-
-/* Common styling for the delete button */
-.delete-button {
-    background-color: #ff4c4c; /* Red background color */
-    color: white; /* White text color */
-    border: none; /* Remove border */
-    border-radius: 5px; /* Rounded corners */
-    padding: 10px 15px; /* Padding for size */
-    font-size: 16px; /* Font size */
-    cursor: pointer; /* Pointer cursor on hover */
-    transition: background-color 0.3s ease; /* Smooth transition for background color */
-  }
-  
-  /* Change background color on hover */
-  .delete-button:hover {
-    background-color: #e43a40; /* A bit darker red on hover */
-  }
-  
-  /* Change background color on active (click) */
-  .delete-button:active {
-    background-color: #cc3238; /* Even darker red on click */
-  }
   
