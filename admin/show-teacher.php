@@ -28,7 +28,7 @@ if ($result && mysqli_num_rows($result) > 0) {
         <div class="card">
             <div class="card-header">
                 <h4>Teacher List
-                    <a href="users.php" class="btn btn-danger float-end">Back</a>
+                    <a href="index.php" class="btn btn-danger float-end">Back</a>
                 </h4>
                 
             </div>

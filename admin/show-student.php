@@ -1,14 +1,7 @@
 <?php
 include('includes/header.php');
 include_once 'config/dbcon.php';
-if (session_status() == PHP_SESSION_NONE) {
-    session_start();
-}
-if (!isset($_SESSION['email'])) {
-    // Redirect the user to the login page if not logged in
-    header("Location: login.php");
-    exit(); // Stop executing the script
-}
+
 $conn = connection();  // Assuming this function connects to your database
 
 // Fetch student data from the database
@@ -28,7 +21,7 @@ if ($result && mysqli_num_rows($result) > 0) {
         <div class="card">
             <div class="card-header">
                 <h4>Student List
-                    <a href="users.php" class="btn btn-danger float-end">Back</a>
+                    <a href="index.php" class="btn btn-danger float-end">Back</a>
                 </h4>
                 
             </div>

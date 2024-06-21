@@ -1,6 +1,11 @@
 <?php
 
 include('includes/header.php');
+include 'config/dbcon.php';
+
+// Enable error reporting for debugging
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
 
 if (isset($_POST['saveStudent'])) {
     $err = [];
@@ -46,6 +51,7 @@ if (isset($_POST['saveStudent'])) {
     } else {
         $err['batch_year'] = 'Please enter batch year';
     }
+
     if (isset($_POST['dob']) && !empty($_POST['dob']) && trim($_POST['dob'])) {
         $dob = $_POST['dob'];
     } else {
@@ -53,20 +59,24 @@ if (isset($_POST['saveStudent'])) {
     }
 
     if (empty($err)) {
-        try{
+        try {
             $conn = connection();
             $query = "INSERT INTO students (fname, lname, phone, email, username, password, batch_year, dob) VALUES ('$fname', '$lname', '$phone', '$email', '$username', '$hashed_password', '$batch_year', '$dob')";
             print_r($query);
             $result = mysqli_query($conn, $query);
-            echo '<script>
-                alert("added student successfully.");
-                window.location.href = "index.php";
-            </script>';
-        exit();
-        }catch(exception $ex){
-            die('Database error: '. $ex->getMessage());
+            if ($result) {
+                echo '<script>
+                    alert("Added student successfully.");
+                    window.location.href = "show-student.php";
+                </script>';
+            } else {
+                // Output MySQL error
+                echo "Error: " . mysqli_error($conn);
+                echo '<script>alert("Failed to add student.");</script>';
+            }
+        } catch (Exception $ex) {
+            die('Database error: ' . $ex->getMessage());
         }
-        
     }
 }
 ?>
@@ -78,7 +88,6 @@ if (isset($_POST['saveStudent'])) {
                 <h4>Add Student
                     <a href="users.php" class="btn btn-danger float-end">Back</a>
                 </h4>
-                
             </div>
             <div class="card-body">
                 <form action="" method="POST">
@@ -86,56 +95,56 @@ if (isset($_POST['saveStudent'])) {
                         <div class="col-md-6">
                             <div class="mb-3">
                                 <label>Fname</label>
-                                <input type="text" name="fname" class="form-control" >
-                                <span class="error"><?php if (isset($err['fname'])){echo $err['fname'];} ?></span>
+                                <input type="text" name="fname" class="form-control">
+                                <span class="error"><?php if (isset($err['fname'])) { echo $err['fname']; } ?></span>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="mb-3">
                                 <label>Lname</label>
-                                <input type="text" name="lname" class="form-control" >
-                                <span class="error"><?php if (isset($err['lname'])){echo $err['lname'];} ?></span>
+                                <input type="text" name="lname" class="form-control">
+                                <span class="error"><?php if (isset($err['lname'])) { echo $err['lname']; } ?></span>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="mb-3">
                                 <label>Phone</label>
-                                <input type="text" name="phone" class="form-control" >
-                                <span class="error"><?php if (isset($err['phone'])){echo $err['phone'];} ?></span>
+                                <input type="text" name="phone" class="form-control">
+                                <span class="error"><?php if (isset($err['phone'])) { echo $err['phone']; } ?></span>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="mb-3">
                                 <label>Email</label>
-                                <input type="email" name="email" class="form-control" >
-                                <span class="error"><?php if (isset($err['email'])){echo $err['email'];} ?></span>
+                                <input type="email" name="email" class="form-control">
+                                <span class="error"><?php if (isset($err['email'])) { echo $err['email']; } ?></span>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="mb-3">
                                 <label>Username</label>
-                                <input type="text" name="username" class="form-control" >
-                                <span class="error"><?php if (isset($err['username'])){echo $err['username'];} ?></span>
+                                <input type="text" name="username" class="form-control">
+                                <span class="error"><?php if (isset($err['username'])) { echo $err['username']; } ?></span>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="mb-3">
                                 <label>Password</label>
-                                <input type="text" name="password" class="form-control" >
-                                <span class="error"><?php if (isset($err['password'])){echo $err['password'];} ?></span>
+                                <input type="password" name="password" class="form-control">
+                                <span class="error"><?php if (isset($err['password'])) { echo $err['password']; } ?></span>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="mb-3">
                                 <label>Date of Birth</label>
-                                <input type="date" name="dob" class="form-control" >
-                                <span class="error"><?php if (isset($err['dob'])){echo $err['dob'];} ?></span>
+                                <input type="date" name="dob" class="form-control">
+                                <span class="error"><?php if (isset($err['dob'])) { echo $err['dob']; } ?></span>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="mb-3">
                                 <label>Batch year</label>
-                                <input type="text" name="batch_year" class="form-control" >
+                                <input type="text" name="batch_year" class="form-control">
                             </div>
                         </div>
                         <div class="col-md-6">
@@ -149,4 +158,3 @@ if (isset($_POST['saveStudent'])) {
         </div>
     </div>
 </div>
-

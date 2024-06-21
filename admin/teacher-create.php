@@ -1,7 +1,7 @@
 <?php
 
 include('includes/header.php');
-include_once 'config/dbcon.php';
+include 'config/dbcon.php';
 
 
 
@@ -54,7 +54,7 @@ if (isset($_POST['saveTeacher'])) {
             $result = mysqli_query($conn, $query);
             echo '<script>
             alert("Added teacher successfully.");
-            window.location.href = "index.php";
+            window.location.href = "show-teacher.php";
             </script>';
         }catch(exception $ex){
             die('Database error: '. $ex->getMessage());
