@@ -1,16 +1,16 @@
 <?php
 include('includes/header.php');
-include_once 'config/dbcon.php';
+include 'config/dbcon.php';
 
 // Check if teacher_id is provided in the URL
-if (!isset($_GET['id']) || empty($_GET['id'])) {
-    echo '<script>window.location.href = "index.php";</script>'; // Redirect if no id provided
+if (!isset($_GET['teacher_id']) || empty($_GET['teacher_id'])) {
+    echo '<script>window.location.href = "show-teacher.php";</script>'; // Redirect if no id provided
     exit;
 }
 
 $conn = connection();  // Assuming this function connects to your database
 
-$teacher_id = $_GET['id'];
+$teacher_id = $_GET['teacher_id'];
 $err = [];
 
 // Fetch teacher data based on teacher_id
@@ -130,5 +130,3 @@ if (isset($_POST['updateTeacher'])) {
         </div>
     </div>
 </div>
-
-

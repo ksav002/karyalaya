@@ -1,16 +1,16 @@
 <?php
 include('includes/header.php');
-include_once 'config/dbcon.php';
+include 'config/dbcon.php';
 
 // Check if student_id is provided in the URL
-if (!isset($_GET['id']) || empty($_GET['id'])) {
-    echo '<script>window.location.href = "index.php";</script>'; // Redirect if no id provided
+if (!isset($_GET['student_id']) || empty($_GET['student_id'])) {
+    echo '<script>window.location.href = "show-student.php";</script>'; // Redirect if no id provided
     exit;
 }
 
 $conn = connection();  // Assuming this function connects to your database
 
-$student_id = mysqli_real_escape_string($conn, $_GET['id']); // Sanitize the student_id
+$student_id = mysqli_real_escape_string($conn, $_GET['student_id']); // Sanitize the student_id
 $err = [];
 
 // Fetch student data based on student_id
