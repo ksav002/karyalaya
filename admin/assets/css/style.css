@@ -1,0 +1,96 @@
+/* Global styles */
+body, html {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    font-family: Arial, sans-serif;
+    background-color: #830866;
+}
+
+/* Background color for the main container */
+.background-color {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background-color: #830866;
+}
+
+/* Centering the login wrapper */
+.login-wrapper {
+    width: 100%;
+    max-width: 400px;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+}
+
+/* Container for form content */
+.container {
+    padding: 20px;
+    border: #333;
+}
+
+/* Heading style */
+.heading {
+    text-align: center;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+/* Form box */
+.form-box {
+    display:block;
+    flex-direction: column;
+    border: #333;
+}
+
+/* Input control styling */
+.input-control {
+    margin-bottom: 15px;
+}
+
+.input-control label {
+    display: block;
+    margin-bottom: 5px;
+    color: #333;
+}
+
+.input-control input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #f8f9fa;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+/* Remember me checkbox styling */
+input[type="checkbox"] {
+    margin-right: 5px;
+}
+
+/* Error message styling */
+.error {
+    color: red;
+    font-size: 12px;
+}
+
+/* Form button styling */
+.form-button {
+    display: flex;
+    justify-content: center;
+}
+
+.form-button input[type="submit"] {
+    padding: 10px 20px;
+    background-color: #830866;
+    color: #f8f9fa;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+

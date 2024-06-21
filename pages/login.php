@@ -35,11 +35,9 @@
                 if(isset($_POST['remember'])){ //sets cookie if remember me is checked/on
                     setcookie('title', $title, time() + (86400 * 30), "/"); // 30 days
                     setcookie('username', $username, time() + (86400 * 30), "/"); // 30 days
-                    setcookie('password', $password, time() + (86400 * 30), "/"); // 30 days
                 } else { //deletes cookie
                     setcookie('title', $title, time() - (86400 * 30), "/");
                     setcookie('username', $username, time() - (86400 * 30), "/");
-                    setcookie('password', $password, time() - (86400 * 30), "/");
                 }
                 header("location:dashboard.php");
             } else {
@@ -49,10 +47,9 @@
     }
 
     //if cookies are set then put it in a variable and use that variable to put in value in input fields 
-    if (isset($_COOKIE['title']) && isset($_COOKIE['username']) && isset($_COOKIE['password'])) {
+    if (isset($_COOKIE['title']) && isset($_COOKIE['username'])) {
         $title_cookie = $_COOKIE['title'];
         $username_cookie = $_COOKIE['username'];
-        $password_cookie = $_COOKIE['password'];
     }
 
 ?>
@@ -95,7 +92,7 @@
                         </div>
                         <div class="input-control">
                             <label for="password">Password</label>
-                            <input type="password" name="password" value="<?php if(isset( $password_cookie)){echo $password_cookie;} ?>"/>
+                            <input type="password" name="password" value=""/>
                             <span class="error"><?php if (isset($err['password'])){echo $err['password'];} ?></span>
                         </div>
                         <div>
