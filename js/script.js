@@ -201,7 +201,7 @@ function deleteSubmission(submissionid){
     $.ajax({
         type: "POST",
         url: "../database/value_modify.php",
-        data: { submissionid: submissionid },
+        data: { delete_submissionid: submissionid },
         success: function(response) {
             alert("Data deleted successfully.Reload to view change: " + response);
         },
@@ -224,4 +224,40 @@ function validateEditFileForm(){
      } else {
         return true;
      }
+}
+
+function validateFeedbackForm() {
+    var feedbackText = document.getElementById('feedback-text').value.trim();
+    var feedbackError = document.getElementById('feedback-error');
+
+    feedbackError.textContent = ''; // Clear any previous error messages
+    if (feedbackText === '') {
+        feedbackError.textContent = 'Please enter some feedback';
+        return false;
+    } else {
+        submissionId = document.getElementById('submission-id').value;
+        $.ajax({
+            type: "POST",
+            url: "../database/value_modify.php",
+            data: { feedback_submissionid: submissionId, feedbackText: feedbackText },
+            success: function(response) {
+                alert("Feedback successfully provided." + response);
+                // Optionally, you can clear the form or close the modal here
+                document.getElementById('provide-feedback-form').reset();
+            },
+            error: function(xhr) {
+                alert("Error: " + xhr.responseText);
+            }
+        });
+        return false;
+    }
+}
+
+function provideFeedback(submissionId) {
+    document.getElementById('submission-id').value = submissionId;
+}
+
+function viewFeedbackForm(){
+    var feedback = document.querySelector('a[href="#view-feedback"]').getAttribute('data-feedback');
+    $('#feedback-text').val(feedback);
 }

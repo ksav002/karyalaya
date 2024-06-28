@@ -1,8 +1,9 @@
 <?php
 
-error_reporting();
+error_reporting(0);
 include_once '../database/value_pull.php';
 include_once '../database/value_modify.php';
+
 // Check if the user is logged in
 if (!isset($_SESSION['username']) || $_SESSION['title'] == 'student') {
     // Redirect the user to the login page if not logged in
@@ -35,9 +36,10 @@ $submissionResult = getSubmission($assignmentId,$teacherCoursesId);
     <?php
         if ($submissionResult == false){
             echo "No submissions are provided for this question.";
+            exit();
         } else {
     ?>
-    <table class="submission-table">
+    <table class="submission-table" border="1">
         <tr>
             <th>S.N.</th>
             <th>Student's Name</th>
@@ -49,15 +51,22 @@ $submissionResult = getSubmission($assignmentId,$teacherCoursesId);
                 <td><?php echo $submissionResult['fname']. ' ' .$submissionResult['lname'] ?></td>
                 <td>
                     <button type="button" onclick="previewFile('<?php echo $submissionResult['submission_file']; ?>')">Preview</button>
-                    <button type="button"onclick="deleteSubmission('<?php echo $submissionResult['submission_id']; ?>')" >Delete</button>
+                    <button type="button" onclick="deleteSubmission('<?php echo $submissionResult['submission_id']; ?>')" >Delete</button>
+                    <a href="#provide-feedback" data-modal="#provide-feedback" rel="modal:open" onclick="provideFeedback('<?php echo $submissionResult['submission_id']; ?>')"><button>Provide Feedback</button></a>
                 </td>            
             </tr>
         <?php } ?>
     </table>
-</body>
-</html>
-
-<?php } ?>
 
 <script type="text/javascript" src="../js/script.js"></script>
 <script type="text/javascript" src="../js/jquery.min.js"></script>
+<!-- jQuery Modal -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.2/jquery.modal.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.2/jquery.modal.min.css" />
+</body>
+</html>
+
+<?php 
+    include_once 'popup_modal.php';
+    } ?>
+

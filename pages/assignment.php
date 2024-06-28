@@ -1,5 +1,5 @@
 <?php
-    error_reporting();
+    error_reporting(0);
     session_start();
     include_once '../database/value_pull.php';
     include_once '../database/value_push.php';
@@ -97,7 +97,7 @@
         </div>
     </div>
 
-    <script type="text/javascript" src="../js/script.js"></script>
+<script type="text/javascript" src="../js/script.js"></script>
 <script type="text/javascript" src="../js/jquery.min.js"></script>
 <!-- jQuery Modal -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.2/jquery.modal.min.js"></script>

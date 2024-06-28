@@ -12,10 +12,18 @@ if (isset($_POST['functionName']) && isset($_POST['someId'])) {
 }
 
 //to delete the submitted values
-if (isset($_POST['submissionid'])) {
-    $submissionId = $_POST['submissionid'];
+if (isset($_POST['delete_submissionid'])) {
+    $submissionId = $_POST['delete_submissionid'];
     $result = deleteSubmission($submissionId);
 }
+
+//to set feedback
+if (isset($_POST['feedback_submissionid']) && $_POST['feedbackText']) {
+    $submissionId = $_POST['feedback_submissionid'];
+    $feedbackText = $_POST['feedbackText'];
+    $result = createFeedback($submissionId,$feedbackText);
+}
+
 
 
 
@@ -64,6 +72,17 @@ if (isset($_POST['submissionid'])) {
         try{
             $connection = connectDatabase();
             $sql = "UPDATE submission SET submission_file='$submissionFile' WHERE submission_id='$submissionId';";
+            mysqli_query($connection,$sql);
+            return true;
+        } catch (Exception $ex){
+            die('Database Error: '. $ex->getMessage());
+        }
+    }   
+
+    function createFeedback($submissionId,$feedback_text){
+        try{
+            $connection = connectDatabase();
+            $sql = "UPDATE submission SET feedback='$feedback_text' WHERE submission_id='$submissionId';";
             mysqli_query($connection,$sql);
             return true;
         } catch (Exception $ex){

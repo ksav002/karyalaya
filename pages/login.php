@@ -1,5 +1,5 @@
 <?php
-    error_reporting();
+    error_reporting(0);
     session_start();
     include_once '../database/login_validation.php';
 

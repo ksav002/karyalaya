@@ -1,5 +1,5 @@
 <?php
-    error_reporting();
+    error_reporting(0);
     session_start();
     include_once '../database/value_pull.php';
     // Check if the user is logged in

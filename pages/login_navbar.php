@@ -1,5 +1,5 @@
 <?php
-    error_reporting();
+    error_reporting(0);
     include_once '../database/value_pull.php';
     if (session_status() == PHP_SESSION_NONE) {
         session_start();

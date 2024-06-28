@@ -1,5 +1,5 @@
 <?php
-error_reporting();
+error_reporting(0);
 include_once '../database/value_pull.php';
 
 // Check if the user is logged in
@@ -77,6 +77,10 @@ $title = $_SESSION['title'];
             $assignmentId = $details['assignment_id'];
         }
     }
+    if(isset($_POST['viewFeedback'])){
+        $submissionId = $_POST['submissionId'];
+        
+    }
     ?>
 </div>
 
@@ -117,6 +121,10 @@ if ($title == 'student'){
             foreach ($submissionId as $submissionId){
         ?>
         <a href="#edit-file" data-modal="#edit-file" rel="modal:open" data-submission-id="<?php echo $submissionId['submission_id']; ?>"><button>Edit File</button></a>
+        <form action="" onclick="return viewFeedbackForm()">
+            <input type="hidden" name="submissionId" id="submission-id" value="<?php echo $submissionId['submission_id']; ?>">
+            <a href="#view-feedback" data-modal="#view-feedback" rel="modal:open" data-submission-id="<?php echo $submissionId['submission_id']; ?>" data-feedback="<?php echo $submissionId['feedback']; ?>"><button>View Feedback</button></a>
+        </form>
         <?php
             }
         }  
